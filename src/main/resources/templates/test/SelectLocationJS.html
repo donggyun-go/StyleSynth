@@ -1,0 +1,31 @@
+<script>
+    $(window).on('load', function() {
+    $('#local').on('change', function() {
+        var city = $('#city');
+        var thisVal = $('#local').val();
+        var opH = "";
+        city.find('option').remove();
+        opH = "<option value=''>전체</option>";
+
+        if (thisVal != "") {
+            $.ajax({
+                url: './findCity',
+                type: 'get',
+                dataType: 'json',
+                data: {'local': thisVal},
+                success: function(data) {
+                    var parsedData = data; // JSON 데이터를 객체로 변환
+                    opH = "<option value=''>전체</option>";
+                    $.each(parsedData.citys, function(index, value) { // 객체의 citys 배열에 접근
+                        opH += '<option value="' + value + '">' + value + '</option>';
+                    });
+                    city.append(opH);
+                },
+                error: function() {
+                    alert('error');
+                }
+            });
+        }
+    });
+});
+</script>

@@ -1,0 +1,45 @@
+<script>
+ // 수정 버튼 클릭 이벤트 핸들러
+  $('.edit-btn').click(function() {
+    // 현재 댓글 아이템을 찾기
+    var commentItem = $(this).closest('.comment-item');
+    // 댓글 내용을 가져와서 입력 폼에 표시
+    var commentContent = commentItem.find('.comment-content').text();
+    var editForm = commentItem.find('.comment-edit-form');
+    editForm.find('.comment-textarea').val(commentContent);
+    // 입력 폼을 표시하고 댓글 내용을 숨김
+    commentItem.find('.comment-content').hide();
+    editForm.show();
+  });
+</script>
+<script>
+  // 저장 버튼 클릭 이벤트 핸들러
+  $('.save-btn').click(function() {
+    // 현재 댓글 아이템을 찾기
+    var commentItem = $(this).closest('.comment-item');
+    // 수정한 댓글 내용 가져오기
+    var editedContent = commentItem.find('.comment-edit-form textarea').val();
+    // 댓글 내용 업데이트
+    commentItem.find('.comment-content').text(editedContent);
+    // 입력 폼 숨김, 댓글 내용 표시
+    commentItem.find('.comment-content').show();
+    commentItem.find('.comment-edit-form').hide();
+  });
+</script>
+
+// AJAX 요청을 통해 서버에 업데이트 요청 전송
+var commentSeq = commentItem.attr('data-comment-seq'); // 댓글 seq 가져오기
+$.ajax({
+type: 'POST',
+url: '/update-comment', // 업데이트 요청을 처리하는 서버의 엔드포인트 URL
+data: {
+"commentSeq": commentSeq,
+"editedContent": editedContent
+},
+success: function(response) {
+console.log('댓글 업데이트 성공');
+},
+error: function(error) {
+console.error('댓글 업데이트 실패', error);
+}
+});

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>requestBoard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/navfooter.css" rel="stylesheet"/>
+    <link href="/static/css/requestBoard.css" rel="stylesheet"/>
+    <link href="/static/css/pagination.css" rel="stylesheet"/>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+        $('#searchBox').on('click', function(){
+            let searchType = $('#searchType').val();
+            let search=$('#search').val();
+            let url = '/WantedList?vpage=1';
+
+            if(searchType !== 'all'){
+                url += '&searchType=' +searchType;
+                }
+            if(search){
+                url += '&search=' + search;
+                }
+         window.location.href = url;
+        });
+    });
+
+    </script>
+</head>
+<body>
+<!-- Navigation-->
+<div th:replace="header.html"></div>
+<!-- Masthead-->
+<header class="masthead-show3" style="background-image: url('/static/image/header-bg.jpg');">
+    <div class="container">
+        <div class="masthead-heading3">Change Your Style</div>
+        <div class="masthead-subheading3">Welcome To Our Studio!</div>
+    </div>
+</header>
+<!--검색기능-->
+<div class="full-container">
+    <div class="grid-search">
+        <h3>의뢰 게시판</h3>
+        <div>
+            <div class="grid-gap">
+                <select id="searchType" class="searchType">
+                    <option value="all">전체</option>
+                    <option value="address">주소</option>
+                    <option value="Writer_id">작성자</option>
+                </select>
+                <input type="text" id="search" name="search" th:value="${search}">
+                <input type="button" id="searchBox" value="검색">
+            </div>
+        </div>
+    </div>
+    <!-- 검색결과 없을때-->
+    <div th:if="${showoffs == null or showoffs.size() == 0}">
+        <tr>
+            <td colspan="2">검색 결과가 없습니다.</td>
+        </tr>
+    </div>
+
+    <div class="table-container">
+        <table class="table">
+            <thead class="table-dark">
+            <tr>
+                <th>글번호</th>
+                <th>제목</th>
+                <th>작성자</th>
+                <th>작성일자</th>
+                <th>조회수</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="wanted : ${showoffs}">
+                <td th:text="${wanted.seq}">1</td>
+                <td>
+                    <div>
+                        <span th:if="${session.membertype != 2 and session.userId != wanted.Writer_id or (wanted.reservation==1 and session.membertype==2) or (wanted.reservation == 0 and wanted.create_date.plusDays(7) &lt; #temporals.createNow())}">
+                            <span th:if="${wanted.reservation == 1}" class="badge badge-success">예약완료</span>
+                            <span th:if="${wanted.reservation == 0 and wanted.create_date.plusDays(7) &gt; #temporals.createNow()}" class="badge badge-warning">진행중</span>
+                            <span th:if="${wanted.reservation == 0 and wanted.create_date.plusDays(7) &lt; #temporals.createNow()}" class="badge badge-danger">종료</span>
+                            <span th:text="${wanted.title}"></span>
+                        </span>
+                        <a th:href="@{/WantedDetail/{seq}(seq=${wanted.seq})}"
+                           th:if="${(wanted.reservation==1 and session.userId == wanted.Writer_id) or (wanted.reservation == 0 and (session.userId == wanted.Writer_id or session.membertype == 2)) and (wanted.reservation == 0 and wanted.create_date.plusDays(7) &gt; #temporals.createNow())}">
+                            <span th:if="${wanted.reservation == 1}" class="badge badge-success">예약완료</span>
+                            <span th:if="${wanted.reservation == 0 and wanted.create_date.plusDays(7) &gt; #temporals.createNow()}" class="badge badge-warning">진행중</span>
+                            <span th:if="${wanted.reservation == 0 and wanted.create_date.plusDays(7) &lt; #temporals.createNow()}" class="badge badge-danger">종료</span>
+                            <span th:text="${wanted.title}"></span>
+                        </a>
+                    </div>
+                </td>
+                <td th:text="${wanted.customer_name}"></td>
+                <td th:text="${#temporals.format(wanted.create_date, 'yyyy-MM-dd HH:mm:ss')}">날짜</td>
+                <td th:text="${wanted.views}">조회수</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!--페이징-->
+    <div class="page_wrap">
+        <div class="page_nation" th:with="prevpage=${vpage-1}, nextpage=${vpage+1}">
+            <a class="arrow pprev" href="#"></a>
+            <a th:if="${prevpage >= 1}" th:href="@{/WantedList(vpage=${prevpage})}"
+               class="arrow prev"></a>
+            <span th:if="${vpage > 10}">
+          <a th:href="@{/WantedList(vpage=1)}"><span>1</span></a>
+          <span>...</span>
+        </span>
+            <div th:with="start=1, end=ListSize">
+          <span th:each="i : ${#numbers.sequence(1, ListSize)}" th:if="${i <= ListSize}">
+            <a th:if="${i == vpage}" th:text="${i}"></a>
+            <a th:if="${i != vpage}" th:href="@{/WantedList(vpage=${i})}">
+              <span th:text="${i}"></span>
+            </a>
+          </span>
+            </div>
+            <span th:if="${vpage < ListSize - 9}">
+          <span>...</span>
+          <a th:href="@{/WantedList(vpage=${ListSize})}"><span th:text="${ListSize}"></span></a>
+        </span>
+            <a th:if="${nextpage <= ListSize}" th:href="@{/WantedList(vpage=${nextpage})}"
+               class="arrow next"></a>
+            <a class="arrow nnext" href="#"></a>
+        </div>
+    </div>
+</div>
+<div th:replace="footer.html"></div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var timeElements = document.getElementsByClassName('create_date');
+
+  for (var i = 0; i < timeElements.length; i++) {
+    var timeElement = timeElements[i];
+    var createdAt = new Date(timeElement.innerText);
+    var now = new Date();
+
+    var diff = Math.abs(now - createdAt);
+    var secondDiff = Math.floor(diff / 1000);
+    var minuteDiff = Math.floor(secondDiff / 60);
+    var hourDiff = Math.floor(minuteDiff / 60);
+    var dayDiff = Math.floor(hourDiff / 24);
+
+    var timeAgo;
+    if (minuteDiff < 1) {
+      timeAgo = secondDiff + '초 전';
+    } else if (hourDiff < 1) {
+      timeAgo = minuteDiff + '분 전';
+    } else if (dayDiff < 1) {
+      timeAgo = hourDiff + '시간 전';
+    } else {
+      timeAgo = dayDiff + '일 전';
+    }
+
+    timeElement.innerText = timeAgo;
+  }
+});
+</script>
+
+</body>
+</html>

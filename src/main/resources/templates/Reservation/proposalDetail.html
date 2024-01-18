@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>proposalDetail</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+    <link href="/static/css/proposalWrite.css" rel="stylesheet"/>
+    <link href="/static/css/navfooter.css" rel="stylesheet"/>
+</head>
+<!-- Navigation-->
+
+<body>
+<div th:replace="header.html"></div>
+<!-- Masthead-->
+<header class="masthead-show3" style="background-image: url('/static/image/proposaldetail.png');">
+    <div class="container">
+        <div class="masthead-heading3">.</div>
+        <div class="masthead-subheading3"></div>
+    </div>
+</header>
+<div class="write-form">
+<div class="proposal-container2">
+    <!--디자이너 사진, 기본정보-->
+    <div class="flex-container">
+        <div><img th:src="@{|/uploads/${designer.photo_path}|}" alt="Image 2"></div>
+        <div class="wide">
+            <!-- 디자이너 이름 -->
+            <div class="form-group">
+                <span>이름</span>
+                <span th:text="${designer.name}"></span>
+            </div>
+
+            <!-- 별점 -->
+            <div class="form-group">
+                <span>별점</span>
+                <div class="rate">
+                    <span class="rating">
+                        <span class="stars" th:class="${designer.point/designer.point_count > 0 && designer.point/designer.point_count < 1 ? 'star-half' : ''}"></span>
+                        <span class="stars" th:class="${designer.point/designer.point_count >= 1 ? 'star-full' : ''}"></span>
+                        <span class="stars" th:class="${designer.point/designer.point_count > 1 && designer.point/designer.point_count < 2 ? 'star-half' : ''}"></span>
+                        <span class="stars" th:class="${designer.point/designer.point_count >= 2 ? 'star-full' : ''}"></span>
+                        <span class="stars" th:class="${designer.point/designer.point_count > 2 && designer.point/designer.point_count < 3 ? 'star-half' : ''}"></span>
+                        <span class="stars" th:class="${designer.point/designer.point_count >= 3 ? 'star-full' : ''}"></span>
+                        <span class="stars" th:class="${designer.point/designer.point_count > 3 && designer.point/designer.point_count < 4 ? 'star-half' : ''}"></span>
+                        <span class="stars" th:class="${designer.point/designer.point_count >= 4 ? 'star-full' : ''}"></span>
+                        <span class="stars" th:class="${designer.point/designer.point_count > 4 && designer.point/designer.point_count < 5 ? 'star-half' : ''}"></span>
+                        <span class="stars" th:class="${designer.point/designer.point_count >= 5 ? 'star-full' : ''}"></span>
+                    </span>
+                    <span th:if="${designer.point_count == 0}">0.0</span>
+                    <span th:unless="${designer.point_count == 0}" th:text="'(' + ${designer.point/designer.point_count} + ')'"></span>
+                </div>
+            </div>
+
+            <!-- 가격 -->
+            <div class="form-group">
+                <span>가격</span>
+                <span th:text="${offer.price}"></span>
+            </div>
+
+            <!-- 시간 -->
+            <div class="form-group">
+                <span>시간</span>
+                <span th:text="|${offer.hour}:${offer.minute}|"></span>
+            </div>
+
+            <!--미용실 위치,번호-->
+            <div class="form-group">
+                <span>위치</span>
+                <span th:text="${designer.address}" class="form-control"></span>
+            </div>
+
+            <div class="form-group">
+                <span>번호</span>
+                <span th:text="${designer.phone_num}" class="form-control"></span>
+            </div>
+
+            <!-- 후기 -> 없을 경우, "후기가 없습니다." 출력
+                            있을 경우, 후기 갯수만큼 출력 -> 상의 후, 필요할 경우 수정 -->
+            <div th:if="${reviews == null or reviews.size() == 0}" class="form-group">
+                <tr>
+                    <td colspan="2"><strong>후기가 없습니다.</strong></td>
+                </tr>
+            </div>
+            <div class="form-group">
+                후기
+                <div th:each="review : ${reviews}" class="review-item">
+                    <span th:text="${review.content}"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--시술 타입-->
+    <div class="flex-container">
+        시술 타입:
+        <input type="checkbox" th:checked="${offer.is_cut == 1}" disabled>컷
+        <input type="checkbox" th:checked="${offer.is_perm == 1}" disabled>펌
+        <input type="checkbox" th:checked="${offer.is_dye == 1}" disabled>염색
+        <input type="checkbox" th:checked="${offer.is_dry == 1}" disabled>드라이
+    </div>
+
+    <!--시술내용 및 소요시간-->
+    <div class="flex-container2">
+        <div><label for="procedure">시술 및 비용에<br> 대한 상세 설명</label></div>
+        <div class="wide"><textarea id="procedure" class="form-control" placeholder="상세설명" th:text="${offer.detail}"
+                                    readonly></textarea></div>
+    </div>
+    <!--디자이너 코멘트-->
+    <div class="flex-container2">
+        <div><label for="comment">제공할 수 있는<br> 서비스</label></div>
+        <div class="wide"><textarea id="comment" class="form-control" placeholder="서비스" th:text="${offer.service}"
+                                    readonly></textarea></div>
+    </div>
+
+    <!-- 경력 -->
+    <div class="flex-container2">
+        <div><label for="career">경력</label></div>
+        <div class="wide"><textarea id="career" class="form-control inputData" th:text="${designer.career}" readonly
+                                    name="career"></textarea></div>
+    </div>
+
+    <!--포트폴리오 사진들-->
+    <div class="form-group">
+        <!-- 포폴 나오는 부분 확인 좀 해줘야할듯?-->
+        <div class="slider">
+            <th:block th:each="portfolio : ${portfolios}">
+                <div class="portfolio-container">
+                    <img th:src="@{|/uploads/${portfolio.photo_path}|}" alt="">
+                </div>
+            </th:block>
+        </div>
+    </div>
+    <!--버튼 -> 수정해야하지만 일단 값 확인부터 -->
+    <form action="/insertReservation" method="post" id="msform">
+        <input type="hidden" name="designer_id" id="designer_id" th:value="${designer.id}">
+        <input type="hidden" name="request_seq" id="request_seq" th:value="${offer.request_seq}">
+        <input type="hidden" id="date" name="date" th:value="${offer.date}">
+        <input type="hidden" id="hour" name="hour" th:value="${offer.hour}">
+        <input type="hidden" id="minute" name="minute" th:value="${offer.minute}">
+        <!-- 예약 버튼 -->
+        <div class="form-group button-group">
+            <a th:if="${session.membertype == 1}" th:href="@{/WantedDetail/${offer.request_seq}}">
+                <button type="submit" class="btn btn-primary summit-btn" data-toggle="modal" data-target="#confirmModal">예약</button>
+            </a>
+            <a class="btn btn-primary summit-btn" th:if="${session.membertype == 2}" th:href="@{/WantedDetail/{seq}(seq=${offer.request_seq})}">확인</a>
+        </div>
+    </form>
+</div>
+</div>
+<!-- 모달 창 -->
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmModalLabel">제출 확인</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                예약을 완료하셨습니다. 어떤 페이지로 이동하시겠습니까?
+            </div>
+            <div class="modal-footer">
+                <a href="/goMyPage" class="btn btn-primary" id="confirmButton">마이페이지로</a>
+                <a href="/mainPage" class="btn btn-secondary" id="MainButton">메인 페이지로</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        var seq = $('#request_seq').val();
+        console.log(seq);
+        $('.slider').slick({
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 2000,
+            prevArrow: "<button type='button' class='slick-prev'>&lt;</button>",
+            nextArrow: "<button type='button' class='slick-next'>&gt;</button>"
+        });
+    });
+
+
+</script>
+<script>
+    document.getElementById('msform').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        var formData = new FormData(this);
+
+        $.ajax({
+            type: "POST",
+            url: "/insertReservation",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                // 서버에서 성공적으로 응답을 받았을 때 실행되는 코드
+                $('#confirmModal').modal('show');
+            },
+            error: function (e) {
+                // 서버에서 오류 응답을 받았을 때 실행되는 코드
+                console.log("ERROR: ", e);
+            }
+        });
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+</body>
+<div th:replace="footer.html"></div>
+</html>

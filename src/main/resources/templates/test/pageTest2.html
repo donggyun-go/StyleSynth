@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var offers=null;
+            var showOffs=null;
+            // 서버로부터 전체 데이터 리스트를 요청
+            $.get('/getAllDataD', function(dmyPageData) {
+                offers = dmyPageData.offers;
+                showOffs = dmyPageData.showOffs;
+            });
+            $('#one').click(function() {
+                initializePage(offers);
+            });
+            $('#Two').click(function() {
+                initializePageTwo(showOffs);
+            });
+
+        });
+
+        function initializePage(offers) {
+            // 페이지 초기화 작업 수행
+            var pageSize = 10; // 페이지당 보여줄 데이터 수
+            var currentPage = 1; // 현재 페이지 번호
+            var totalPages = Math.ceil(offers.length / pageSize); // 전체 페이지 수
+
+            // 페이지 번호를 표시할 영역 선택
+            var pagination = $('#pagination');
+            pagination.empty();
+
+            // 페이지 번호 생성
+            for (var i = 1; i <= totalPages; i++) {
+                var pageNumber = $('<span>').text(i);
+                pageNumber.addClass('page-number');
+                pagination.append(pageNumber);
+            }
+
+            // 첫 페이지 데이터 표시
+            displayData(offers, currentPage, pageSize);
+
+            // 페이지 번호 클릭 이벤트 핸들러 등록
+            pagination.on('click', '.page-number', function() {
+                currentPage = parseInt($(this).text());
+                displayData(offers, currentPage, pageSize);
+            });
+        }
+
+        function displayData(offers, currentPage, pageSize) {
+            // 데이터를 표시할 영역 선택
+            var table = $('#myTable');
+            table.empty();
+
+            // 현재 페이지에 해당하는 데이터 인덱스 계산
+            var startIndex = (currentPage - 1) * pageSize;
+            var endIndex = Math.min(startIndex + pageSize, offers.length);
+
+            // 현재 페이지 데이터 표시
+            for (var i = startIndex; i < endIndex; i++) {
+                var offer = offers[i];
+                // 데이터를 이용하여 원하는 형식으로 표시
+
+                // 테이블의 각 행 생성
+                var row = $('<tr>');
+
+                // 글번호 열 생성
+                var seqColumn = $('<td>').text(offer.seq);
+                row.append(seqColumn);
+
+                // 제목 열 생성
+                var titleColumn = $('<td>');
+                var titleLink = $('<a>').attr('href', '/viewOffer/' + offer.seq).text(offer.service);
+                titleColumn.append(titleLink);
+                row.append(titleColumn);
+
+                // 테이블에 행 추가
+                table.append(row);
+            }
+        }
+        function initializePageTwo(showOffs) {
+            // 페이지 초기화 작업 수행
+            var pageSize = 10; // 페이지당 보여줄 데이터 수
+            var currentPage = 1; // 현재 페이지 번호
+            var totalPages = Math.ceil(showOffs.length / pageSize); // 전체 페이지 수
+
+            // 페이지 번호를 표시할 영역 선택
+            var pagination = $('#paginationTwo');
+            pagination.empty();
+
+            // 페이지 번호 생성
+            for (var i = 1; i <= totalPages; i++) {
+                var pageNumber = $('<span>').text(i);
+                pageNumber.addClass('page-number');
+                pagination.append(pageNumber);
+            }
+
+            // 첫 페이지 데이터 표시
+            displayDataTwo(showOffs, currentPage, pageSize);
+
+            // 페이지 번호 클릭 이벤트 핸들러 등록
+            pagination.on('click', '.page-number', function() {
+                currentPage = parseInt($(this).text());
+                displayDataTwo(showOffs, currentPage, pageSize);
+            });
+        }
+
+        function displayDataTwo(showOffs, currentPage, pageSize) {
+            // 데이터를 표시할 테이블 선택
+            var table = $('#myTableTwo');
+            table.empty();
+
+            // 현재 페이지에 해당하는 데이터 인덱스 계산
+            var startIndex = (currentPage - 1) * pageSize;
+            var endIndex = Math.min(startIndex + pageSize, showOffs.length);
+
+            // 현재 페이지 데이터 표시
+            for (var i = startIndex; i < endIndex; i++) {
+                var showOff = showOffs[i];
+
+                // 테이블의 각 행 생성
+                var row = $('<tr>');
+
+                // 글번호 열 생성
+                var seqColumn = $('<td>').text(showOff.seq);
+                row.append(seqColumn);
+
+                // 제목 열 생성
+                var titleColumn = $('<td>');
+                var titleLink = $('<a>').attr('href', '/edit/' + showOff.seq).text(showOff.title);
+                titleColumn.append(titleLink);
+                row.append(titleColumn);
+
+                // 작성일자 열 생성
+                var createdDateColumn = $('<td>').text(formatDate(showOff.createdDate));
+                row.append(createdDateColumn);
+
+                // 조회수 열 생성
+                var viewsColumn = $('<td>').text(showOff.views);
+                row.append(viewsColumn);
+
+                // 테이블에 행 추가
+                table.append(row);
+            }
+        }
+        function formatDate(dateString) {
+            var createdDate = new Date(dateString);
+            var formattedDate = createdDate.toLocaleString('ko-KR', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            });
+            return formattedDate;
+        }
+    </script>
+</head>
+<body>
+<div>
+    <input type="button" id="one" value="1번">
+    <input type="button" id="Two" value="2번">
+</div>
+
+<div id="paginationContainer">
+    <table id="myTable">
+
+    </table>
+    <!-- 데이터를 동적으로 표시할 영역 -->
+</div>
+
+<div id="pagination">
+
+    <!-- 페이지 번호를 표시할 영역 -->
+</div>
+
+<div id="paginationContainerTwo">
+    <table id="myTableTwo">
+
+    </table>
+    <!-- 데이터를 동적으로 표시할 영역 -->
+</div>
+
+<div id="paginationTwo">
+
+    <!-- 페이지 번호를 표시할 영역 -->
+</div>
+
+<!-- 페이징 처리 -->
+
+</body>
+</html>
