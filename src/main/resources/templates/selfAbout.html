@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="/writeSelfAbout" method="post">
+    <input th:hidden="true" name="id" th:value="${id}" />
+    <input th:hidden="true" name="userid" th:value="${userid}" />
+    <input type="text" name="self_about" value="" />
+    <input type="submit" value="저장하기" />
+</form>
+</body>
+</html>

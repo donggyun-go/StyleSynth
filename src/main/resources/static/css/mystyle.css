@@ -1,0 +1,375 @@
+/** login **/
+@charset "UTF-8";
+
+.login-container {
+    padding: 0;
+    margin: 0;
+    width: 600px;
+    height: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #cabe9f;
+    background-color: #fff;
+
+}
+
+.login-wrapper {
+    width: 400px;
+    height: 350px;
+    padding: 40px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.login-wrapper>h2 {
+    font-size: 24px;
+    color: #cabe9f;
+    margin-bottom: 20px;
+}
+
+#login-form>input {
+    width: 100%;
+    height: 48px;
+    padding: 0 10px;
+    box-sizing: border-box;
+    margin-bottom: 16px;
+    border: 1px solid #e8e8e8;
+    border-radius: none;
+    background-color: #F8F8F8;
+}
+
+#login-form>input::placeholder {
+    color: #D2D2D2;
+}
+
+#login-form>input[type="submit"] {
+    color: #fff;
+    font-size: 16px;
+    background-color: #cabe9f;
+    margin-top: 20px;
+}
+
+.login-container {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.list-login li:not(:last-child) {
+    border-right: 1px solid #ddd;
+}
+
+.list-login li {
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 16px;
+}
+
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+
+/** regist-choice**/
+.button-box {
+    width: 800px;
+    /* 너비 설정 */
+    height: 400px;
+    /* 높이 설정 */
+    background-color: #ffffff;
+    /* 배경색 설정 */
+    display: flex;
+    /* Flexbox 사용 */
+    justify-content: space-between;
+    /* 간격 늘리기 */
+    align-items: center;
+    /* 수직 가운데 정렬 */
+    margin: 0 auto;
+    /* 가운데 정렬 */
+}
+
+.square-button {
+    width: 300px;
+    height: 300px;
+    margin: 10px;
+    border: 5px solid #e8e8e8;
+    border-radius: 10px;
+    background-color: #ffffff;
+    color: black;
+    font-size: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.button:hover {
+    background-color: #0069d9;
+}
+
+.square-button img {
+    margin-bottom: 10px;
+    max-width: 50%;
+    max-height: 50%;
+    margin-right: 10px;
+}
+
+/** regist form **/
+
+.radio-box {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    /* 간격 조절 */
+}
+
+/** table **/
+.table-member .member_td_bgcolor {
+    background-color: #f6f6f6;
+    vertical-align: middle;
+    font-size: 14px;
+}
+
+.table-member .member_txt tr,
+.table-member .member_txt td {
+    border: none;
+}
+
+@media (max-width: 991px) {
+    input.member_border {
+        width: 100%;
+    }
+
+    select.member_border {
+        width: 100%;
+        max-width: 200px;
+    }
+}
+
+textarea.member_border {
+    font-size: 14px;
+    color: #777;
+}
+
+button,
+input {
+    overflow: visible;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 20px;
+    padding: 20px;
+    margin-top: 50px;
+}
+
+.null {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.grid-item {
+    display: grid;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.grid-item img {
+    max-width: 200px;
+    max-height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 1px solid #eee;
+}
+
+.grid-item-info {
+    padding: 10px;
+}
+
+.rating {
+    color: #ffcc00;
+    font-weight: bold;
+}
+
+.description {
+    font-size: 14px;
+}
+
+.page_wrap {
+    text-align: center;
+    font-size: 0;
+    width: 100%;
+    /* 추가 */
+}
+
+.page_nation {
+    display: inline-flex;
+    /* 변경: inline-block에서 inline-flex로 변경 */
+    align-items: center;
+    justify-content: center;
+    /* 추가 */
+}
+
+.page_nation .none {
+    display: none;
+}
+
+.page_nation a {
+    display: block;
+    margin: 0 3px;
+    float: left;
+    border: 1px solid #e6e6e6;
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+    background-color: #fff;
+    font-size: 13px;
+    color: #999999;
+    text-decoration: none;
+}
+
+.page_nation .arrow {
+    border: 1px solid #ccc;
+}
+
+.page_nation .pprev {
+    background: #f8f8f8 url('../image/arrow/page_pprev.png') no-repeat center center;
+    margin-left: 0;
+}
+
+.page_nation .prev {
+    background: #f8f8f8 url('../image/arrow/page_prev.png') no-repeat center center;
+    margin-right: 7px;
+}
+
+.page_nation .next {
+    background: #f8f8f8 url('../image/arrow/page_next.png') no-repeat center center;
+    margin-left: 7px;
+}
+
+.page_nation .nnext {
+    background: #f8f8f8 url('../image/arrow/page_nnext.png') no-repeat center center;
+    margin-right: 0;
+}
+
+.page_nation a.active {
+    background-color: #42454c;
+    color: #fff;
+    border: 1px solid #42454c;
+}
+
+.grid-search {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px;
+    margin: 100px 20px 0px 20px;
+}
+
+.modal {
+    background-color: rgba(0, 0, 0, 1.5);
+}
+.modal-dialog{
+    min-width: 600px;
+    min-height: 800px;
+}
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    align-items: flex-start
+}
+
+.modal-content {
+    border-radius: 0;
+}
+
+.modal-title {
+    margin-bottom: 0;
+}
+
+.modal-body {
+    margin-bottom: 1rem;
+}
+
+.carousel-inner img {
+    max-height: 300px;
+    object-fit: cover;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: rgba(0, 0, 0, 0.5);
+    height: 40px;
+    width: 40px;
+
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    height: 100%;
+    width: 50px;
+}
+
+.modal-body .row {
+    margin-bottom: 1rem;
+}
+
+.portfolio-container {
+    display: flex;
+    overflow-x: hidden; /* 스크롤바를 없애는 부분 */
+    position: relative;
+    align-items: center;
+    justify-content: center;
+}
+
+.portfolio-image {
+    flex-shrink: 0;
+    width: 100px;
+    height: 100px;
+    margin-right: 10px;
+}
+
+.portfolio-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.5);
+    border: none;
+    font-size: 24px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.portfolio-container::-webkit-scrollbar {
+  display: none;
+}
+
+.prev {
+    left: 0;
+}
+
+.next {
+    right: 0;
+}
+
+.modal .modal-dialog .modal-content .modal-header .btn-close{
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 10px;
+}
