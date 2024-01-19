@@ -1,0 +1,85 @@
+.modal {
+    background-color: #191919;
+}
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.modal-content {
+    border-radius: 0;
+    max-width: 700px;
+    max-height: 1200px;
+}
+
+.modal-title {
+    margin-bottom: 0;
+}
+
+.modal-body {
+    margin-bottom: 1rem;
+}
+
+.carousel-inner img {
+    max-height: 300px;
+    object-fit: cover;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: rgba(0, 0, 0, 0.5);
+    height: 40px;
+    width: 40px;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    height: 100%;
+    width: 50px;
+}
+
+.modal-body .row {
+    margin-bottom: 1rem;
+}
+
+.portfolio-container {
+    display: flex;
+    overflow-x: auto;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+}
+
+.portfolio-image {
+    flex-shrink: 0;
+    width: 100px;
+    height: 100px;
+    margin-right: 10px;
+}
+
+.portfolio-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.5);
+    border: none;
+    font-size: 24px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.prev {
+    left: 0;
+}
+
+.next {
+    right: 0;
+}
+
+.modal .modal-dialog .modal-content .modal-header .btn-close{
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 10px;
+}

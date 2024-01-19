@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <title>My page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="/static/css/riewstar.css" rel="stylesheet"/>
+    <link href="/static/css/navfooterMain.css" rel="stylesheet"/>
+    <link href="/static/css/mypage.css" rel="stylesheet"/>
+    <link href="/static/css/navfooter.css" rel="stylesheet"/>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+
+<body id="page-top">
+<!-- Navigation-->
+<div th:replace="header.html"></div>
+<!-- Masthead-->
+<header class="masthead-show3" style="background-image: url('/static/image/header-bg.jpg');">
+    <div class="container">
+        <div class="masthead-heading3">Change Your Style</div>
+        <div class="masthead-subheading3">Welcome To Our Studio!</div>
+    </div>
+</header>
+
+<section class="spacer">
+    <div class="container">
+        <div class="my-main">
+            <span th:text="|${session.userId}님의 myPage|"></span>
+            <div class="my-body">
+                <div class="my-left">
+                    <div class="my-items">
+                        <ul>
+                            <li id="my-profile" onclick="changeItem('my-profile','item-profile');" class="current">내
+                                정보수정
+                            </li>
+                            <li id="my-rank" onclick="changeItem('my-rank','item-rank');">내 작성글 확인</li>
+                            <li id="my-active" onclick="changeItem('my-active','item-active');">내 신청서 확인</li>
+                            <li id="my-review" onclick="changeItem('my-review','item-review');">내 리뷰 확인</li>
+                            <li id="my-history" onclick="changeItem('my-history','item-history');">탈퇴하기</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="my-right">
+                    <div class="item-detail">
+                        <div id="item-profile">
+                            <div class="item-detail-block">
+                                <div class="i-block-head">
+                                    <h5 style="margin:0;">내 정보</h5>
+                                </div>
+                                <div>
+                                    <table>
+                                        <tr>
+                                            <td>아이디</td>
+                                            <td>
+                                                <spqn th:text="${customer.id}"></spqn>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>비밀번호</td>
+                                            <td><input type="password" th:value="${customer.pw}" id="pw" name="pw"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>이름</td>
+                                            <td>
+                                                <spqn th:text="${customer.name}"></spqn>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>성별</td>
+                                            <td>
+                                                <spqn th:text="${customer.gender}"></spqn>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>생일</td>
+                                            <td>
+                                                <spqn th:text="${customer.birthday}"></spqn>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>이메일</td>
+                                            <td><input type="text" th:value="${customer.email}" id="email" name="email">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>번호</td>
+                                            <td><input type="text" th:value="${customer.phone_num}" id="phone_num"
+                                                       name="phone_num"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>주소</td>
+                                            <td><input type="text" th:value="${customer.address}" id="address"
+                                                       name="address"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>모질</td>
+                                            <td>
+                                                <input type="radio" name="hair_condition" value="1"
+                                                       th:checked="${customer.hair_condition==1}">직모
+                                                <input type="radio" name="hair_condition" value="2"
+                                                       th:checked="${customer.hair_condition==2}">곱슬
+                                                <input type="radio" name="hair_condition" value="3"
+                                                       th:checked="${customer.hair_condition==3}">반곱슬
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>머리길이</td>
+                                            <td>
+                                                <input type="radio" name="hair_length" value="1"
+                                                       th:checked="${customer.hair_length==1}">단발
+                                                <input type="radio" name="hair_length" value="2"
+                                                       th:checked="${customer.hair_length==2}">중간
+                                                <input type="radio" name="hair_length" value="3"
+                                                       th:checked="${customer.hair_length==3}">장발
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>펌 횟수</td>
+                                            <td>
+                                                <input type="radio" name="perm_times" value="0"
+                                                       th:checked="${customer.perm_times==0}">없음
+                                                <input type="radio" name="perm_times" value="1"
+                                                       th:checked="${customer.perm_times==1}">1회
+                                                <input type="radio" name="perm_times" value="2"
+                                                       th:checked="${customer.perm_times==2}">2회
+                                                <input type="radio" name="perm_times" value="3"
+                                                       th:checked="${customer.perm_times==3}">3회 이상
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>염색 횟수</td>
+                                            <td>
+                                                <input type="radio" name="dye_times" value="0"
+                                                       th:checked="${customer.dye_times==0}">없음
+                                                <input type="radio" name="dye_times" value="1"
+                                                       th:checked="${customer.dye_times==1}">1회
+                                                <input type="radio" name="dye_times" value="2"
+                                                       th:checked="${customer.dye_times==2}">2회
+                                                <input type="radio" name="dye_times" value="3"
+                                                       th:checked="${customer.dye_times==3}">3회 이상
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>두상 특징</td>
+                                            <td>
+                                                <input type="text" name="head_shape" placeholder="두상을 입력하세요"
+                                                       th:value="${customer.head_shape}"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="button" value="수정하기" id="rewrite">
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        　
+                        <div id="item-rank">
+                            <div class="item-detail-block">
+                                <div class="i-block-head">
+                                    <h5 style="margin:0;">내 작성글 확인</h5>
+                                </div>
+                                <div>
+                                    <table>
+                                        <thead>
+                                        <tr>
+                                            <th>글번호</th>
+                                            <th>제목</th>
+                                            <th>작성일자</th>
+                                            <th>조회수</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="page2Table">
+
+                                        </tbody>
+                                    </table>
+                                    <div>
+                                        <div class="pagination" id="pagination2"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="item-active">
+                            <div class="item-detail-block">
+                                <div class="i-block-head">
+                                    <h5 style="margin:0;">내 신청서 확인</h5>
+                                </div>
+                                <div>
+                                    <table>
+                                        <thead>
+                                        <tr>
+                                            <th>글번호</th>
+                                            <th>제목</th>
+                                            <th>작성일자</th>
+                                            <th>조회수</th>
+                                            <th>리뷰</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="page1Table">
+
+                                        </tbody>
+                                    </table>
+                                    <div>
+                                        <div class="pagination" id="pagination"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="item-review">
+                            <div class="item-detail-block">
+                                <div class="i-block-head">
+                                    <h5 style="margin:0;">내 리뷰    확인</h5>
+                                </div>
+                                <div>
+                                    <table>
+                                        <thead>
+                                        <tr>
+                                            <th>리뷰</th>
+                                            <th>작성일자</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="page3Table">
+
+                                        </tbody>
+                                    </table>
+                                    <div>
+                                        <div class="pagination" id="pagination3"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="item-history">
+                            <div class="item-detail-block">
+                                <div class="i-block-head">
+                                    <h5 style="margin:0;">탈퇴하기</h5>
+                                </div>
+                                <div class="delete-btn">
+                                    <div>
+                                        <div>정말로 탈퇴하실 건가요?</div>
+                                        <div>탈퇴하실 경우, 회원님이 작성하신 모든 글은 자동으로 삭제됩니다.</div>
+                                        <input type="button" value="탈퇴" id="del" onclick="location.href='/delete';">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- The Modal -->
+<div class="modal fade" id="reviewModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">리뷰를 남겨주세요</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <form action="/InsertReview" method="post">reviewCustomerId
+                    <input type="hidden" id="reviewDesignerId" name="designer_id">
+                    <input type="hidden" id="reviewCustomerId" name="customer_id">
+                    <input type="hidden" id="reviewRequestSeq" name="request_seq">
+                    <input type="hidden" class="form-control" id="reviewDate" name="date">
+                    <div class="form-group rating-container">
+                        <span class="rating-label">별점:</span>
+                        <fieldset class="rate">
+                            <input type="radio" id="rating10" name="rating" value="5"><label for="rating10" title="5점"></label>
+                            <input type="radio" id="rating9" name="rating" value="4.5"><label class="half" for="rating9" title="4.5점"></label>
+                            <input type="radio" id="rating8" name="rating" value="4"><label for="rating8" title="4점"></label>
+                            <input type="radio" id="rating7" name="rating" value="3.5"><label class="half" for="rating7" title="3.5점"></label>
+                            <input type="radio" id="rating6" name="rating" value="3"><label for="rating6" title="3점"></label>
+                            <input type="radio" id="rating5" name="rating" value="2.5"><label class="half" for="rating5" title="2.5점"></label>
+                            <input type="radio" id="rating4" name="rating" value="2"><label for="rating4" title="2점"></label>
+                            <input type="radio" id="rating3" name="rating" value="1.5"><label class="half" for="rating3" title="1.5점"></label>
+                            <input type="radio" id="rating2" name="rating" value="1"><label for="rating2" title="1점"></label>
+                            <input type="radio" id="rating1" name="rating" value="0.5"><label class="half" for="rating1" title="0.5점"></label>
+                        </fieldset>
+                    </div>
+                    <div class="form-group">
+                        <label for="reviewContent">후기:</label>
+                        <textarea class="form-control" id="reviewContent" rows="3" name="content" placeholder="소중한 리뷰를 남겨주세요"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
+                        <button type="submit" class="btn btn-primary" href="/goMyPage">제출</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    var reviewDateInput = document.getElementById('reviewDate');
+    var currentDate = new Date();
+    reviewDateInput.value = currentDate;
+});
+</script>
+<script>
+    $(document).ready(function() {
+        $('.modal-body form').submit(function(event) {
+            event.preventDefault();
+
+            var formData = new FormData(this);
+
+            $.ajax({
+                type: "POST",
+                url: "/InsertReview",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(data) {
+                    if(data){
+                        alert('작성 완료');
+                        let url = './goMyPage';
+                        window.location.href = url;
+                    }else{
+                        alert('리뷰작성오류');
+                    }
+                },
+                error: function(e) {
+                    // 서버에서 오류 응답을 받았을 때 실행되는 코드
+                    console.log("ERROR: ", e);
+                }
+            });
+        });
+    });
+</script>
+<script type="text/javascript">
+  // 페이지 로드 완료 시 실행
+  $(document).ready(function() {
+    var selectedTab = localStorage.getItem("selectedTab");
+    if (selectedTab) {
+      // 로컬 스토리지에 저장된 탭이 있는 경우 해당 탭으로 변경
+      changeItem(selectedTab, "item-" + selectedTab);
+    } else {
+      // 로컬 스토리지에 저장된 탭이 없는 경우 기본 탭으로 설정
+      changeItem("my-profile", "item-profile");
+    }
+
+    // 탭 클릭 이벤트 처리
+    $('ul.tabs li').click(function() {
+      var tab_id = $(this).attr('data-tab');
+      // 클릭한 탭을 선택한 상태로 변경하고 해당 내용을 표시
+      $('ul.tabs li').removeClass('current');
+      $('.tab-content').removeClass('current');
+      $(this).addClass('current');
+      $("#" + tab_id).addClass('current');
+    });
+
+    // AJAX 요청 및 기타 함수들은 이곳에 추가합니다.
+
+    // 전체 데이터를 서버로부터 가져오는 AJAX 요청 후 처리하는 코드
+    var requestAndReservations = null;
+    var showOffs = null;
+    $.get('/getAllData', function(myPageData) {
+      requestAndReservations = myPageData.requestAndReservation;
+      showOffs = myPageData.showOffs;
+    });
+
+    // "활동 내역" 탭 클릭 시 초기화 함수 호출
+    $('#my-active').click(function() {
+      initializePage(requestAndReservations);
+    });
+
+    // "랭킹" 탭 클릭 시 초기화 함수 호출
+    $('#my-rank').click(function() {
+      initializePageTwo(showOffs);
+    });
+
+    // "리뷰" 탭 클릭 시 초기화 함수 호출
+    $('#my-review').click(function() {
+      initializePageThree(reviews);
+    });
+  });
+
+  // 그 외 함수 정의들은 이곳에 작성합니다.
+
+  // 선택한 탭의 내용 표시 함수
+  function changeTabDisplay(detail) {
+    // 모든 탭 내용을 숨김
+    var details = ["item-profile", "item-rank", "item-active", "item-review", "item-history"];
+    details.forEach(function(d) {
+      var element = document.getElementById(d);
+      if (element) {
+        element.style.display = "none";
+      }
+    });
+
+    // 선택한 탭의 내용을 표시
+    var selectedTab = document.getElementById(detail);
+    if (selectedTab) {
+      selectedTab.style.display = "block";
+    }
+  }
+
+  // 탭 변경 함수
+  function changeItem(item, detail) {
+    // 선택한 탭의 색상 및 내용 변경
+    changeTabColor(item, "#f5f5f5", "#ffffff");
+    changeTabDisplay(detail);
+    // 선택한 탭을 로컬 스토리지에 저장
+    localStorage.setItem("selectedTab", item);
+  }
+
+  // 탭 색상 및 내용 변경 함수
+  function changeTabColor(item, defaultColor, selectedColor) {
+    // 모든 탭의 배경색을 기본 색으로 설정
+    var items = ["my-profile", "my-rank", "my-active", "my-review", "my-history"];
+    items.forEach(function(i) {
+      document.getElementById(i).style.backgroundColor = defaultColor;
+    });
+
+    // 선택한 탭의 배경색을 선택된 색으로 설정
+    document.getElementById(item).style.backgroundColor = selectedColor;
+  }
+
+  // "활동 내역" 탭의 데이터를 표시하는 함수
+  function displayData(requestAndReservations, currentPage, pageSize) {
+    // 표시할 데이터를 담을 테이블 선택
+    var table = $('#page1Table');
+    table.empty(); // 기존 데이터 삭제
+
+    // 현재 페이지에 해당하는 데이터 인덱스 계산
+    var startIndex = (currentPage - 1) * pageSize;
+    var endIndex = Math.min(startIndex + pageSize, requestAndReservations.length);
+
+    // 현재 페이지 데이터 표시
+    for (var i = startIndex; i < endIndex; i++) {
+      var rar = requestAndReservations[i];
+      // 데이터를 이용하여 원하는 형식으로 표시
+
+      // 테이블의 각 행 생성
+      var row = $('<tr>');
+
+      // 글번호 열 생성
+      var seqColumn = $('<td>').text(rar.requestTable.seq);
+      row.append(seqColumn);
+
+      // 제목 열 생성
+      var titleColumn = $('<td>');
+      var titleLink = $('<a>').attr('href', '/WantedDetail/' + rar.requestTable.seq).text(rar.requestTable.title);
+      titleColumn.append(titleLink);
+      row.append(titleColumn);
+
+      // 작성일자 열 생성
+      var createdAt = new Date(rar.requestTable.create_date).toISOString();
+      var formattedDate = getFormattedDate(createdAt);
+      var createdDateColumn = $('<td>').addClass('comment-date').attr('data-created-at', createdAt).text(formattedDate);
+      row.append(createdDateColumn);
+
+      // 조회수 열 생성
+      var viewsColumn = $('<td>').text(rar.requestTable.views);
+      row.append(viewsColumn);
+
+      // 예약 데이터가 있는 경우 리뷰 버튼 열 생성
+      if (rar.reservation != null) {
+        var currentTime = new Date();
+        var reservationTime = new Date(rar.reservation.reservationDate.time_date);
+
+        // 리뷰 작성 가능한 경우 리뷰 버튼 생성
+        if (rar.reservation.reservationDate.review == 0 && reservationTime.getTime() < currentTime.getTime()) {
+          var designerId = rar.reservation.reservationDate.designer_id;
+          var customerId = rar.reservation.reservationDate.customer_id;
+          var requestSeq = rar.reservation.reservationDate.request_seq;
+
+          // 디자이너 ID와 의뢰서 seq 값을 가져와서 처리하는 코드 작성
+
+          var reviewColumn = $('<td>');
+          var reviewButton = $('<button>').addClass('btn btn-primary').attr('type', 'button').attr('data-toggle', 'modal').attr('data-target', '#reviewModal').text('리뷰');
+          reviewButton.click(function() {
+            $('#reviewModal').find('#reviewDesignerId').val(designerId);
+            $('#reviewModal').find('#reviewCustomerId').val(customerId);
+            $('#reviewModal').find('#reviewRequestSeq').val(requestSeq);
+          });
+          reviewColumn.append(reviewButton);
+          row.append(reviewColumn);
+        }
+      }
+
+      // 테이블에 행 추가
+      table.append(row);
+    }
+  }
+
+  // "활동 내역" 탭 초기화 함수
+  function initializePage(requestAndReservations) {
+    // 페이지 초기화 작업 수행
+    var pageSize = 10; // 페이지당 보여줄 데이터 수
+    var currentPage = 1; // 현재 페이지 번호
+    var totalPages = Math.ceil(requestAndReservations.length / pageSize); // 전체 페이지 수
+
+    // 페이지 번호를 표시할 영역 선택
+    var pagination = $('#pagination');
+    pagination.empty();
+
+    // 페이지 번호 생성
+    for (var i = 1; i <= totalPages; i++) {
+      var pageNumber = $('<span>').text(i);
+      pageNumber.addClass('page-number');
+      pagination.append(pageNumber);
+    }
+
+    // 첫 페이지 데이터 표시
+    displayData(requestAndReservations, currentPage, pageSize);
+
+    // 페이지 번호 클릭 이벤트 핸들러 등록
+    pagination.on('click', '.page-number', function() {
+      currentPage = parseInt($(this).text());
+      displayData(requestAndReservations, currentPage, pageSize);
+    });
+  }
+
+  // "랭킹" 탭의 데이터를 표시하는 함수
+  function displayDataTwo(showOffs, currentPage, pageSize) {
+    // 데이터를 표시할 테이블 선택
+    var table = $('#page2Table');
+    table.empty();
+
+    // 현재 페이지에 해당하는 데이터 인덱스 계산
+    var startIndex = (currentPage - 1) * pageSize;
+    var endIndex = Math.min(startIndex + pageSize, showOffs.length);
+
+    // 현재 페이지 데이터 표시
+    for (var i = startIndex; i < endIndex; i++) {
+      var showOff = showOffs[i];
+
+      // 테이블의 각 행 생성
+      var row = $('<tr>');
+
+      // 글번호 열 생성
+      var seqColumn = $('<td>').text(showOff.seq);
+      row.append(seqColumn);
+
+      // 제목 열 생성
+      var titleColumn = $('<td>');
+      var titleLink = $('<a>').attr('href', '/edit/' + showOff.seq).text(showOff.title);
+      titleColumn.append(titleLink);
+      row.append(titleColumn);
+
+      // 작성일자 열 생성
+      var createdDateColumn = $('<td>').addClass('comment-date').text(formatDate(showOff.createdDate));
+      row.append(createdDateColumn);
+
+      // 조회수 열 생성
+      var viewsColumn = $('<td>').text(showOff.views);
+      row.append(viewsColumn);
+
+      // 테이블에 행 추가
+      table.append(row);
+    }
+  }
+
+  // "랭킹" 탭 초기화 함수
+  function initializePageTwo(showOffs) {
+    // 페이지 초기화 작업 수행
+    var pageSize = 10; // 페이지당 보여줄 데이터 수
+    var currentPage = 1; // 현재 페이지 번호
+    var totalPages = Math.ceil(showOffs.length / pageSize); // 전체 페이지 수
+
+    // 페이지 번호를 표시할 영역 선택
+    var pagination = $('#pagination2');
+    pagination.empty();
+
+    // 페이지 번호 생성
+    for (var i = 1; i <= totalPages; i++) {
+      var pageNumber = $('<span>').text(i);
+      pageNumber.addClass('page-number');
+      pagination.append(pageNumber);
+    }
+
+    // 첫 페이지 데이터 표시
+    displayDataTwo(showOffs, currentPage, pageSize);
+
+    // 페이지 번호 클릭 이벤트 핸들러 등록
+    pagination.on('click', '.page-number', function() {
+      currentPage = parseInt($(this).text());
+      displayDataTwo(showOffs, currentPage, pageSize);
+    });
+  }
+
+  // "리뷰" 탭의 데이터를 표시하는 함수
+  function displayDataThree(reviews, currentPage, pageSize) {
+    var table = $('#page3Table');
+    table.empty();
+
+    var startIndex = (currentPage - 1) * pageSize;
+    var endIndex = Math.min(startIndex + pageSize, reviews.length);
+
+    for (var i = startIndex; i < endIndex; i++) {
+      var review = reviews[i];
+
+      var row = $('<tr>');
+
+      // 리뷰 내용 열 생성
+      var contentColumn = $('<td>').text(review.content);
+      row.append(contentColumn);
+
+      // 작성일자 열 생성
+      var formattedDate = getFormattedDate(review.date);
+      var createdDateColumn = $('<td>').addClass('comment-date').text(formattedDate);
+      row.append(createdDateColumn);
+
+      table.append(row);
+    }
+  }
+
+  // "리뷰" 탭 초기화 함수
+  function initializePageThree(reviews) {
+    var pageSize = 10;
+    var currentPage = 1;
+    var totalPages = Math.ceil(reviews.length / pageSize);
+
+    var pagination = $('#pagination3');
+    pagination.empty();
+
+    for (var i = 1; i <= totalPages; i++) {
+      var pageNumber = $('<span>').text(i);
+      pageNumber.addClass('page-number');
+      pagination.append(pageNumber);
+    }
+
+    displayDataThree(reviews, currentPage, pageSize);
+
+    pagination.on('click', '.page-number', function() {
+      currentPage = parseInt($(this).text());
+      displayDataThree(reviews, currentPage, pageSize);
+    });
+  }
+
+  // 날짜 형식 변환 함수
+  function getFormattedDate(dateString) {
+    var createdDate = new Date(dateString);
+    var now = new Date();
+
+    var diff = Math.floor((now - createdDate) / 1000); // 초 단위 차이 계산
+
+    var minuteDiff = Math.floor(diff / 60); // 분 단위 차이
+    var hourDiff = Math.floor(minuteDiff / 60); // 시간 단위 차이
+    var dayDiff = Math.floor(hourDiff / 24); // 일 단위 차이
+
+    if (minuteDiff < 1) {
+      return '방금 전';
+    } else if (hourDiff < 1) {
+      return minuteDiff + '분 전';
+    } else if (dayDiff < 1) {
+      return hourDiff + '시간 전';
+    } else {
+      return dayDiff + '일 전';
+    }
+  }
+
+  // 리뷰 데이터 요청 및 초기화 함수 호출
+  $(document).ready(function() {
+    $.ajax({
+      type: 'POST',
+      url: '/getReview',
+      success: function(reviews) {
+        initializePageThree(reviews);
+      },
+      error: function() {
+        alert('리뷰를 불러오는데 실패했습니다.');
+      }
+    });
+  });
+
+  // 프로필 수정 버튼 클릭 이벤트 처리
+  $('#rewrite').on('click', function() {
+    // 입력된 데이터 가져오기
+    var pw = $('#pw').val();
+    var email = $('#email').val();
+    var phone_num = $('#phone_num').val();
+    var portfolio_link = $('#portfolio_link').val();
+    var address = $('#address').val();
+    var detailed_address = $('#detailed_address').val();
+    var career = $('#career').val();
+    var self_about = $('#self_about').val();
+    var photo_path = $('#photo_path').val();
+    var certificate_path2 = $('#certificate_path2').val();
+    var certificate_path3 = $('#certificate_path3').val();
+
+    // FormData 생성
+    var formData = new FormData();
+    formData.append('pw', pw);
+    formData.append('email', email);
+    formData.append('phone_num', phone_num);
+    formData.append('portfolio_link', portfolio_link);
+    formData.append('address', address);
+    formData.append('detailed_address', detailed_address);
+    formData.append('career', career);
+    formData.append('self_about', self_about);
+    formData.append('photo_path', photo_path);
+    formData.append('certificate_path2', certificate_path2);
+    formData.append('certificate_path3', certificate_path3);
+
+    // AJAX 요청 전송
+    $.ajax({
+      url: '/DSelfAbout',
+      type: 'POST',
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: function(data) {
+        // 전송 성공 시 동작할 코드
+        let url = './goMyPage';
+        if (data == "true") {
+          alert('성공');
+          window.location.href = url;
+        } else if (data == "false") {
+          alert('데이터 변동이 없음');
+        }
+      },
+      error: function() {
+        // 전송 실패 시 동작할 코드
+      }
+    });
+  });
+</script>
+
+</body>
+<div th:replace="footer.html"></div>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+      $('#searchBox').on('click',function(){
+          let search=$('#search').val();
+          let url = '/test?id=' + search;
+          window.location.href = url;
+      });
+  });
+  </script>
+
+
+</head>
+
+<body>
+<div class="container">
+    <div>
+        <table>
+            <input type="text" id="search" name="search" th:value="${id}">
+            <input type="button" id="searchBox" value="검색">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>이름</th>
+            </tr>
+            </thead>
+            <tbody id="result">
+            <div th:if="${designers == null or designers.size() == 0}">
+                <tr>
+                    <td colspan="2">검색 결과가 없습니다.</td>
+                </tr>
+            </div>
+            <div th:with="prevpage=${vpage-1}, nextpage=${vpage+1}">
+                <tr>
+                    <td colspan="2">
+                        <div>
+                            <a th:if="${prevpage >= 1}" th:href="@{/test(vpage=${prevpage}, id=${id})}">
+                                <span>이전</span>
+                            </a>
+                            <span th:if="${vpage > 10}">
+              <a th:href="@{/test(vpage=1, id=${id})}"><span>1</span></a>
+              <span>...</span>
+              </span>
+                            <div th:with="start=1, end=ListSize">
+              <span th:each="i : ${#numbers.sequence(1, ListSize)}" th:if="${i <= ListSize}">
+              <a th:if="${i == vpage}" th:text="${i}"></a>
+              <a th:if="${i != vpage}" th:href="@{/test(vpage=${i}, id=${id})}">
+              <span th:text="${i}"></span>
+              </a>
+              </span>
+                            </div>
+                            <span th:if="${vpage < ListSize - 9}">
+              <span>...</span>
+              <a th:href="@{/test(vpage=${ListSize}, id=${id})}"><span th:text="${ListSize}"></span></a>
+              </span>
+                            <a th:if="${nextpage <= ListSize}" th:href="@{/test(vpage=${nextpage}, id=${id})}">
+                                <span>다음</span>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            </div>
+            <th:block th:each="designer : ${designers}">
+                <tr>
+                    <td>
+                        <a th:href="@{/detail/{id}(id=${designer.id})}">
+                            <span th:text="${designer.id}"></span>
+                        </a>
+                    </td>
+                    <td th:text="${designer.name}"></td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

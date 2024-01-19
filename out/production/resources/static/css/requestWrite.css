@@ -1,0 +1,460 @@
+/*----------------------------- 의뢰서 작성-----------------------*/
+#heading {
+    text-transform: uppercase;
+    color: #cabe9f;
+    font-weight: normal;
+    text-align: center;
+    padding: 15px;
+}
+
+#msform {
+    text-align: center;
+    position: relative;
+}
+
+#msform fieldset {
+    background: white;
+    border: 0 none;
+    border-radius: 0.5rem;
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0;
+    padding-bottom: 20px;
+    position: relative;
+}
+
+.form-card {
+    text-align: center;
+}
+.form-card .big{
+    height: 400px;
+    padding-top: 50px;
+}
+
+.big > div:not(:last-child) {
+  margin-bottom: 50px; /* 간격을 조정할 크기로 설정 */
+}
+
+.centered-div {
+  text-align: center;
+}
+
+#msform fieldset:not(:first-of-type) {
+    display: none;
+}
+
+
+#msform .action-button {
+    width: 100px;
+    background: #cabe9f;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 0px;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 0px 10px 5px;
+}
+
+#msform .action-button:hover,
+#msform .action-button:focus {
+    background-color: #787670;
+}
+
+#msform .action-button-previous {
+    width: 100px;
+    background: #616161;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 0px;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 5px 10px 0px;
+}
+
+#msform .action-button-previous:hover,
+#msform .action-button-previous:focus {
+    background-color: #000000;
+}
+
+.card {
+    z-index: 0;
+    border: 0.0625rem solid #e1e1e1;
+    width: 560px;
+    height: 800px;
+    text-align:center;
+    margin: 0 auto;
+}
+
+.modal {
+    z-index: 99999;
+}
+.fs-title {
+    font-size: 25px;
+    color: #cabe9f;
+    font-weight: normal;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.steps {
+    font-size: 25px;
+    color: gray;
+    margin-bottom: 10px;
+    font-weight: normal;
+    text-align: right;
+}
+
+#progressbar {
+    overflow: hidden;
+    color: lightgrey;
+    text-align:center;
+    padding-left: 0px;
+}
+
+#progressbar .active {
+    color: #cabe9f;
+}
+
+#progressbar li {
+    list-style-type: none;
+    font-size: 15px;
+    width: 20%;
+    float: left;
+    position: relative;
+    font-weight: 400;
+}
+
+#progressbar #information:before {
+    font-family: "Font Awesome 5 Free";
+    content: "\f406";
+    font-weight: 900;
+}
+
+#progressbar #hairCondition:before {
+    font-family: "Font Awesome 5 Free";
+    content: "\f118";
+    font-weight: 900;
+}
+
+#progressbar #request:before {
+    font-family: "Font Awesome 5 Free";
+    content: "\f0ae";
+    font-weight: 900;
+}
+
+#progressbar #image:before {
+    font-family: "Font Awesome 5 Free";
+    content: "\f03e";
+    font-weight: 900;
+}
+
+#progressbar #reservation:before {
+    font-family: "Font Awesome 5 Free";
+    content: "\f073";
+    font-weight: 900;
+}
+
+#progressbar li:before {
+    width: 50px;
+    height: 50px;
+    line-height: 45px;
+    display: block;
+    font-size: 20px;
+    color: #ffffff;
+    background: lightgray;
+    border-radius: 50%;
+    margin: 0 auto 10px auto;
+    padding: 2px;
+}
+
+#progressbar li:after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    background: lightgray;
+    position: absolute;
+    left: 0;
+    top: 25px;
+    z-index: -1;
+}
+
+#progressbar li.active:before,
+#progressbar li.active:after {
+    background: #cabe9f;
+}
+
+.progress {
+    height: 20px;
+}
+
+.fit-image {
+    width: 100%;
+    object-fit: cover;
+}
+
+.radio-container input[type="radio"] {
+    width: 15px;
+    height: 15px;
+}
+
+.radio-container label {
+    font-size: 20px;
+}
+
+
+.input-box {
+  padding: 12px;
+  font-size: 16px;
+  color: #333;
+  background-color: #fff;
+  transition: border-color 0.3s ease;
+}
+
+.input-box label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
+}
+
+.input-box .radio-selection .radio-btn {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  transition: border-color 0.3s ease;
+  position: relative;
+}
+
+.input-box .radio-selection .radio-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 12px;
+  background-color: transparent;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+}
+
+.input-box .radio-selection .radio-btn:checked::before {
+  background-color: #cabe9f;
+}
+
+.input-box input {
+  width: 70%;
+  height: 40px;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  background-color: #f5f5f5;
+  transition: background-color 0.3s ease;
+}
+
+.input-box input:focus {
+  outline: none;
+  background-color: #fff;
+  border: 2px solid #cabe9f;
+}
+
+.row-write{
+    display:flex;
+    justify-content: center;
+    position: absolute;
+    top: 200px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 0;
+}
+
+p2{
+    font-size: .875rem;
+    line-height: 1.3125rem;
+    font-weight: 400;
+    letter-spacing: -.0125rem;
+}
+p{
+    margin-top: 0;
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    text-align: left;
+    color: grey;
+}
+
+.sub{
+    margin-top: 0;
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    text-align: center;
+    color: grey;
+}
+
+.custom-textarea {
+    width: 400px;
+    height: 300px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    font-size: 14px;
+    color: #333;
+    background-color: #f5f5f5;
+}
+
+.notice{
+    width: 370px;
+    margin-left :20px;
+    margin-top: 150px;
+}
+
+.center h4,
+.center p {
+  font-family: 'Noto Sans KR', 'Malgun Gothic', -apple-system, 'Segoe UI', Roboto, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+.center h4 {
+  font-size: 16px;
+  font-weight: normal;
+  font-weight: bold;
+}
+
+.center p.p2 {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  margin-top: 10px;
+}
+
+/* 이미지 컨테이너 스타일링 */
+.image-container {
+  position: relative;
+  display: inline-block; /* 이미지를 가로로 배치합니다. */
+  width: 20%; /* 이미지를 5개씩 표시하려면 각 이미지의 너비를 20%로 설정합니다. */
+}
+
+/* 이미지 스타일링 */
+.image-container .image {
+  width: 120px;
+  height: 120px;
+}
+
+/* 라디오 버튼 스타일링 */
+.image-container .btn-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 5px;
+}
+
+.image-container .btn-container i {
+  color: black;
+  opacity: 0.5;
+  transition: opacity 0.15s ease-in-out;
+}
+
+/* 이미지 hover 스타일링 */
+.image-container:hover .image {
+  opacity: 0.7; /* 이미지 위로 마우스를 가져가면 이미지가 약간 흐려집니다. */
+}
+
+.image-container:hover input[type="radio"] {
+  opacity: 1; /* 이미지 위로 마우스를 가져가면 라디오 버튼이 나타납니다. */
+}
+
+.slick-prev, .slick-next {
+    color: black;
+    position: absolute;
+    top: 40%; /* 버튼의 위치를 위로 올립니다. 원하는 위치에 맞게 조정하세요. */
+    opacity: 0.5; /* 버튼을 불투명하게 만듭니다. 0에서 1사이의 값으로 조정하세요. */
+    transition: opacity .15s ease-in-out; /* 버튼에 마우스를 올렸을 때 불투명도가 부드럽게 변하게 합니다. */
+    z-index: 2; /* Add this line */
+}
+
+.slick-prev {
+    left: -15px;
+}
+
+.slick-next {
+    right: -15px;
+}
+
+.slick-prev:hover, .slick-next:hover {
+    opacity: 1; /* 버튼에 마우스를 올렸을 때 불투명도를 원래대로 돌립니다. */
+}
+
+.reservation-section {
+  text-align: center;
+  padding: 20px;
+  background-color: #f5f5f5;
+}
+
+.reservation-title {
+  font-size: 25px;
+  color: #cabe9f;
+  font-weight: normal;
+  margin-bottom: 20px;
+}
+
+.time-section {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.time-section select {
+  margin: 0 10px;
+}
+
+header.masthead-show3 {
+  padding-top: 3rem;
+  padding-bottom: 1rem;
+  text-align: center;
+  color: #fff;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center center;
+  background-size: cover;
+}
+
+header.masthead-show3 .masthead-subheading3{
+  line-height: 1.5rem;
+  margin-bottom: 25px;
+}
+
+header.masthead-show3 .masthead-heading3 {
+  font-weight: 200;
+  line-height: 2.25rem;
+  margin-bottom: 1rem;
+  font-size: 50px;
+}
+
+@media (min-width: 768px) {
+  header.masthead-show3 {
+    padding-top: 8rem;
+    padding-bottom: 4rem;
+  }
+
+  header.masthead-show3 .masthead-subheading3 {
+    line-height: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  header.masthead-show3 .masthead-heading3 {
+    font-size: 80px;
+    font-weight: 700;
+    line-height: 3rem;
+    margin-bottom: 2rem;
+  }
+}

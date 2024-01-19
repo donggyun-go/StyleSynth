@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <title>requestWrite</title>
+    <!-- Font Awesome icons (free version)-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- JS Code-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/requestWrite.css" rel="stylesheet"/>
+    <link href="/static/css/navfooter.css" rel="stylesheet"/>
+
+</head>
+<!-- Navigation-->
+<div th:replace="header.html"></div>
+<!-- Masthead-->
+<header class="masthead-show3" style="background-image: url('/static/image/reservationbanner.png');">
+    <div class="container">
+        <div class="masthead-heading3">.</div>
+        <div class="masthead-subheading3"></div>
+    </div>
+</header>
+<body>
+<!--MAIN-->
+<div class="container-fluid" style="padding: 450px;">
+    <div class="row-write">
+        <div>
+            <!--설문조사-->
+            <div class="card">
+                <h2 id="heading">예약하기</h2>
+                <p class="sub">정보를 입력하고 원하는 디자이너를 찾아보세요</p>
+                <!-- progressbar -->
+                <ul id="progressbar">
+                    <li class="active" id="information"><strong>기본 정보</strong></li>
+                    <li id="hairCondition"><strong>머리 상태</strong></li>
+                    <li id="request"><strong>요청사항</strong></li>
+                    <li id="image"><strong>사진</strong></li>
+                    <li id="reservation"><strong>예약</strong></li>
+                </ul>
+                <form id="msform" action="/insertWanted" method="post" enctype="multipart/form-data" autocomplete="off">
+                    <br>
+                    <!-- fieldsets -->
+                    <!-- 기본정보 -->
+                    <fieldset>
+                        <div class="form-card">
+                            <div>
+                                <div>
+                                    <h2 class="fs-title">기본정보</h2>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="input-box">
+                                    <div>
+                                        <label>이름</label>
+                                    </div>
+                                    <input type="text" name="customer_name" placeholder="UserName"
+                                           th:value="${customer.name}" id="customer_name"/>
+                                </div>
+                                <div class="input-box">
+                                    <div>
+                                        <label>성별</label>
+                                    </div>
+                                    <div class="radio-selection">
+                                        <input type="radio" id="gender" value="남성" name="gender"
+                                               th:checked="${customer.gender.equals('남성')}" class="radio-btn">
+                                        남성
+                                        <input type="radio" value="여성" name="gender"
+                                               th:checked="${customer.gender.equals('여성')}" class="radio-btn">
+                                        여성
+                                    </div>
+                                </div>
+                                <div class="input-box">
+                                    <div>
+                                        <label>번호</label>
+                                    </div>
+                                    <input type="text" name="phone_num" placeholder="phoneNumber"
+                                           th:value="${customer.phone_num}" id="phone_num"/>
+                                </div>
+                                <div class="input-box">
+                                    <div>
+                                        <label>이메일</label>
+                                    </div>
+                                    <input type="email" name="email" placeholder="Email" th:value="${customer.email}" id="email"/>
+                                </div>
+                                <div class="input-box">
+                                    <div>
+                                        <label>선호지역</label>
+                                    </div>
+                                    <input type="text" name="address" th:value="${customer.address}" id="address"/>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="button" name="next" class="next action-button" value="다음" id="namenext"/>
+                    </fieldset>
+                    <!-- 머리상태 설문조사 -->
+                    <fieldset>
+                        <div class="form-card">
+                            <div>
+                                <div>
+                                    <h2 class="fs-title">머리 상태</h2>
+                                </div>
+                            </div>
+                            <div class="input-box">
+                                <div>
+                                    <label>길이</label>
+                                </div>
+                                <!-- 콤보 박스가 있어야 하는곳 처음엔 고객의 정보에 있는 값으로 선택되어 있어야 함-->
+                                <div class="radio-selection">
+                                    <input type="radio" name="hair_length" value="1"
+                                           th:checked="${customer.hair_length==1}" class="radio-btn">
+                                    단발
+                                    <input type="radio" name="hair_length" value="2"
+                                           th:checked="${customer.hair_length==2}" class="radio-btn">
+                                    중간
+                                    <input type="radio" name="hair_length" value="3"
+                                           th:checked="${customer.hair_length==3}" class="radio-btn">
+                                    장발
+                                </div>
+                            </div>
+                            <div class="input-box">
+                                <div>
+                                    <label>두상</label>
+                                </div>
+                                <input type="text" name="head_shape" placeholder="두상을 입력하세요"
+                                       th:value="${customer.head_shape}" id="head_shape"/>
+                            </div>
+                            <div class="input-box">
+                                <div>
+                                    <label>모발 상태:</label>
+                                </div>
+                                <!-- 콤보 박스가 있어야 하는곳 처음엔 고객의 정보에 있는 값으로 선택되어 있어야 함-->
+                                <div class="radio-selection">
+                                    <input type="radio" name="hair_condition" value="1"
+                                           th:checked="${customer.hair_condition==1}" class="radio-btn">
+                                    나쁨
+                                    <input type="radio" name="hair_condition" value="2"
+                                           th:checked="${customer.hair_condition==2}" class="radio-btn">
+                                    보통
+                                    <input type="radio" name="hair_condition" value="3"
+                                           th:checked="${customer.hair_condition==3}" class="radio-btn">
+                                    좋음
+                                </div>
+                            </div>
+                            <div class="input-box">
+                                <div>
+                                    <label>염색 횟수</label>
+                                </div>
+                                <!-- 콤보 박스가 있어야 하는곳 처음엔 고객의 정보에 있는 값으로 선택되어 있어야 함-->
+                                <div class="radio-selection">
+                                    <input type="radio" name="dye_times" value="0" th:checked="${customer.dye_times==0}"
+                                           class="radio-btn">
+                                    0회
+                                    <input type="radio" name="dye_times" value="1" th:checked="${customer.dye_times==1}"
+                                           class="radio-btn">
+                                    1회
+                                    <input type="radio" name="dye_times" value="2" th:checked="${customer.dye_times==2}"
+                                           class="radio-btn">
+                                    2회
+                                    <input type="radio" name="dye_times" value="3" th:checked="${customer.dye_times==3}"
+                                           class="radio-btn">
+                                    3회 이상
+                                </div>
+                            </div>
+                            <div class="input-box">
+                                <div>
+                                    <label>펌 횟수</label>
+                                </div>
+                                <!-- 콤보 박스가 있어야 하는곳 처음엔 고객의 정보에 있는 값으로 선택되어 있어야 함-->
+                                <div class="radio-selection">
+                                    <input type="radio" name="perm_times" value="1"
+                                           th:checked="${customer.perm_times==0}" class="radio-btn">
+                                    0회
+                                    <input type="radio" name="perm_times" value="1"
+                                           th:checked="${customer.perm_times==1}" class="radio-btn">
+                                    1회
+                                    <input type="radio" name="perm_times" value="2"
+                                           th:checked="${customer.perm_times==2}" class="radio-btn">
+                                    2회
+                                    <input type="radio" name="perm_times" value="3"
+                                           th:checked="${customer.perm_times==3}" class="radio-btn">
+                                    3회 이상
+                                </div>
+                            </div>
+                        </div>
+                        <input type="button" name="previous" class="previous action-button-previous" value="이전"/>
+                        <input type="button" name="next" class="next action-button" value="다음" onclick="validateForm3()" id="headshapenext"/>
+                    </fieldset>
+                    <!-- 요청사항, 주의사항 -->
+                    <fieldset>
+                        <div class="form-card">
+                            <div>
+                                <div>
+                                    <h2 class="fs-title">요청사항</h2>
+                                </div>
+                                <div class="big">
+                                    <input type="textarea" class="custom-textarea" name="content" id="content">
+                                </div>
+                            </div>
+                        </div>
+                        <input type="button" name="previous" class="previous action-button-previous" value="이전"/>
+                        <input type="button" name="next" class="next action-button" value="다음" id="contentnext"/>
+                    </fieldset>
+                    <!-- 사진 첨부하는 곳 -->
+                    <fieldset>
+                        <div class="form-card">
+                            <div>
+                                <div>
+                                    <h2 class="fs-title">사진</h2>
+                                </div>
+                            </div>
+                            <div class="big">
+                                <div class="centered-div">
+                                    기본 사진:
+                                    <input type="file" name="photo_path" accept="img/*" id="photo">
+                                </div>
+                                <div>
+                                    <label class="fs-title">Ai 사진:</label>
+                                    <div class="form-group">
+                                        <div class="portfolio-container slider">
+                                            <th:block th:each="aiResult: ${aiResults}">
+                                                <div class="image-container">
+                                                    <input type="radio" th:value="${aiResult.Ai_photo_path}"
+                                                           name="al_img_path">
+                                                    <img class="image" th:src="@{|/uploads/${aiResult.Ai_photo_path}|}"
+                                                         alt="">
+                                                </div>
+                                            </th:block>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="button" name="previous" class="previous action-button-previous" value="이전"/>
+                        <input type="button" name="next" class="next action-button" value="다음" id="ainext"/>
+                    </fieldset>
+                    <!-- 달력에 예약 날짜 설정 -->
+                    <fieldset>
+                        <div class="form-card">
+                            <div class="reservation-section">
+                                <h2 class="reservation-title">예약하기</h2>
+                                <input type="text" class="datepicker" name="available_date" id="available_date"/>
+                                <div class="time-section">
+                                    <select name="start_hour" id="start_hour" onchange="updateEndHourOptions()">
+                                        <option>--</option>
+                                        <option value="09">9시</option>
+                                        <option value="10">10시</option>
+                                        <option value="11">11시</option>
+                                        <option value="12">12시</option>
+                                        <option value="13">1시</option>
+                                        <option value="14">2시</option>
+                                        <option value="15">3시</option>
+                                        <option value="16">4시</option>
+                                        <option value="17">5시</option>
+                                    </select>
+                                    :
+                                    <select name="start_minute" id="start_minute" onchange="updateEndMinute()">
+                                        <option>--</option>
+                                        <option value="00">00분</option>
+                                        <option value="30">30분</option>
+                                    </select>
+                                    ~
+                                    <select name="end_hour" id="end_hour" onchange="updateEndMinute()">
+                                        <option>--</option>
+                                    </select>
+                                    :
+                                    <select name="end_minute" id="end_minute">
+                                        <option>--</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="button" name="previous" class="previous action-button-previous" value="이전"/>
+                        <input type="submit" value="제출" class="action-button" id="submit"/>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+        <div class="notice">
+            <div class="center">
+                <h4>스타일 신스는 어떤 곳인가요?</h4>
+                <p class="p2">
+                    당신은 웹 사이트에서 원하는 헤어스타일과 함께
+                    본인의 사진을 선택하고, 디자이너들은 요청을 받아서
+                    최고의 헤어스타일과 본인의 컨디션에 맞는 서비스를
+                    제공하기 위해 전문적인 노하우와 기술을 사용합니다.
+                </p>
+                <br>
+                <br>
+                <h4>최고의 디자이너를 찾아보세요</h4>
+                <p class="p2">
+                    당신은 디자이너들의 포트폴리오와 작업 경력을 확인하고,
+                    자신에게 가장 어울리는 디자이너를 선택할 수 있습니다.
+                    이러한 개인 맞춤형 서비스를 통해 당신은 특별한 헤어스타일 경험과
+                    멋진 변화를 경험할 수 있습니다.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="intro-containger">
+    </div>
+    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmModalLabel">제출 확인</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    작성을 완료하셨습니다. 어떤 페이지로 이동하시겠습니까?
+                </div>
+                <div class="modal-footer">
+                    <a href="/goMyPage" class="btn btn-primary" id="confirmButton">내 작성글 확인</a>
+                    <a href="/mainPage" class="btn btn-secondary" id="MainButton">메인 페이지로</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- Footer-->
+<div th:replace="footer.html"></div>
+<script type="text/javascript">
+$(document).ready(function(){
+
+var current_fs, next_fs, previous_fs; //fieldsets
+var opacity;
+var current = 1;
+var steps = $("fieldset").length;
+
+setProgressBar(current);
+
+$(".next").click(function() {
+  var buttonId = $(this).attr("id");
+
+  if (buttonId === "contentnext") {
+    if ($("#content").val() === "") {
+      alert("요청사항을 입력해주세요.");
+      return false; // 다음 버튼의 동작 중단
+    }
+  } else if (buttonId === "ainext") {
+    if ($("#photo").val() === "") {
+      alert("사진을 선택해주세요.");
+      return false; // 다음 버튼의 동작 중단
+    }
+  } else if (buttonId === "namenext") {
+    if ($("#customer_name").val() === "") {
+      alert("이름을 선택해주세요.");
+      return false; // 다음 버튼의 동작 중단
+      }
+    if ($("#phone_num").val() === "") {
+      alert("번호를 작성해주세요.");
+      return false; // 다음 버튼의 동작 중단
+      }
+    if ($("#email").val() === "") {
+      alert("이메일을 작성해주세요.");
+      return false; // 다음 버튼의 동작 중단
+      }
+    if ($("#address").val() === "") {
+      alert("선호지역을 작성해주세요.");
+      return false; // 다음 버튼의 동작 중단
+      }
+      }else if (buttonId === "headshapenext") {
+    if ($("#head_shape").val() === "") {
+      alert("두상을 작성해주세요.");
+      return false; // 다음 버튼의 동작 중단
+      }
+      }
+
+  current_fs = $(this).parent();
+  next_fs = $(this).parent().next();
+
+  // Add Class Active
+  $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+
+  // Show the next fieldset
+  next_fs.show();
+  // Hide the current fieldset with style
+  current_fs.animate(
+    { opacity: 0 },
+    {
+      step: function(now) {
+        // For making fieldset appear animation
+        opacity = 1 - now;
+
+        current_fs.css({
+          display: "none",
+          position: "relative"
+        });
+        next_fs.css({ opacity: opacity });
+      },
+      duration: 500
+    }
+  );
+  setProgressBar(++current);
+
+  // Prevent default form submission
+  return false;
+});
+
+
+
+
+
+
+
+
+$(".previous").click(function(){
+
+  current_fs = $(this).parent();
+  previous_fs = $(this).parent().prev();
+
+  //Remove class active
+  $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
+
+  //show the previous fieldset
+  previous_fs.show();
+
+  //hide the current fieldset with style
+  current_fs.animate({opacity: 0}, {
+    step: function(now) {
+    // for making fielset appear animation
+    opacity = 1 - now;
+
+      current_fs.css({
+      'display': 'none',
+      'position': 'relative'
+       });
+    previous_fs.css({'opacity': opacity});
+    },
+   duration: 500
+});
+setProgressBar(--current);
+});
+
+function setProgressBar(curStep){
+  var percent = parseFloat(100 / steps) * curStep;
+  percent = percent.toFixed();
+  $(".progress-bar")
+  .css("width",percent+"%")
+  }
+
+$(".submit").click(function(){
+  return false;
+  })
+});
+
+$(function(){
+    $('.datepicker').datepicker({
+        dateFormat: 'yy/mm/dd',
+        minDate: 0,
+        maxDate: 60
+    });
+});
+    function updateEndHourOptions() {
+        var startHourSelect = document.getElementById("start_hour");
+        var endHourSelect = document.getElementById("end_hour");
+        var endMinuteSelect = document.getElementById("end_minute");
+        var startHourValue = parseInt(startHourSelect.value);
+
+        // 기존의 옵션을 모두 제거
+        endHourSelect.innerHTML = "";
+        endMinuteSelect.innerHTML = "";
+        // 18시까지 옵션 생성
+
+        var optionPlaceholder = document.createElement("option");
+                optionPlaceholder.value = "--";
+                optionPlaceholder.text = "--";
+                endHourSelect.appendChild(optionPlaceholder);
+
+        for (var i = startHourValue; i <= 18; i++) {
+            var option = document.createElement("option");
+            option.value = i < 10 ? "0" + i : i.toString();
+                var n = i;
+                if(n>=13){
+                n=n-12;
+                }
+            option.text = n + "시";
+            endHourSelect.appendChild(option);
+        }
+    }
+document.addEventListener('DOMContentLoaded', function() {
+    var startHourSelect = document.getElementById("start_hour");
+    var startMinuteSelect = document.getElementById("start_minute");
+    var endHourSelect = document.getElementById("end_hour");
+    var endMinuteSelect = document.getElementById("end_minute");
+
+    function updateEndMinute() {
+        endMinuteSelect.innerHTML = "";
+
+        var optionPlaceholder = document.createElement("option");
+        optionPlaceholder.value = "--";
+        optionPlaceholder.text = "--";
+        endMinuteSelect.appendChild(optionPlaceholder);
+
+        var option00 = document.createElement("option");
+        option00.value = "00";
+        option00.text = "00분";
+        endMinuteSelect.appendChild(option00);
+
+        if (endHourSelect.value != "18") {
+            var option30 = document.createElement("option");
+            option30.value = "30";
+            option30.text = "30분";
+            endMinuteSelect.appendChild(option30);
+        }
+
+        if (startHourSelect.value == endHourSelect.value) {
+            if (startMinuteSelect.value == "30") {
+                endMinuteSelect.innerHTML = "";
+
+                var optionPlaceholder = document.createElement("option");
+                optionPlaceholder.value = "--";
+                optionPlaceholder.text = "--";
+                endMinuteSelect.appendChild(optionPlaceholder);
+
+                var option = document.createElement("option");
+                option.value = "30";
+                option.text = "30분";
+                endMinuteSelect.appendChild(option);
+            } else {
+                endMinuteSelect.innerHTML = "";
+
+                var optionPlaceholder = document.createElement("option");
+                optionPlaceholder.value = "--";
+                optionPlaceholder.text = "--";
+                endMinuteSelect.appendChild(optionPlaceholder);
+
+                var option = document.createElement("option");
+                option.value = "00";
+                option.text = "00분";
+                endMinuteSelect.appendChild(option);
+
+                var option30 = document.createElement("option");
+                option30.value = "30";
+                option30.text = "30분";
+                endMinuteSelect.appendChild(option30);
+            }
+        }
+    }
+
+    if(startHourSelect && startMinuteSelect && endHourSelect && endMinuteSelect){
+        // Select 요소들이 변경되었을 때 updateEndMinute 함수를 호출하도록 이벤트 바인딩
+        startHourSelect.addEventListener('change', updateEndMinute);
+        startMinuteSelect.addEventListener('change', updateEndMinute);
+        endHourSelect.addEventListener('change', updateEndMinute);
+
+        // 페이지가 로드되었을 때 한번 함수를 실행시킵니다.
+        updateEndMinute();
+    }
+    else{
+        console.log("Some elements are missing!");
+    }
+});
+
+// 초기 로드 시 end_hour 셀렉트 박스 업데이트
+updateEndHourOptions();
+
+
+
+document.getElementById('msform').addEventListener('submit', function(event) {
+
+    event.preventDefault();
+    var formData = new FormData(this);
+
+//var content = document.getElementById('content').value;
+var availableDate = document.getElementById('available_date').value;
+var start_hour = document.getElementById('start_hour').value;
+var start_minute = document.getElementById('start_minute').value;
+var end_hour = document.getElementById('end_hour').value;
+var end_minute = document.getElementById('end_minute').value;
+
+
+    //if (!content) {
+        //alert('요청사항을 입력해 주세요');
+        //return;
+    //}
+    if (!availableDate) {
+        alert('날짜를 입력해 주세요');
+        return;
+    }
+    if (start_hour == "--") {
+        alert('시간을 입력해 주세요');
+        return;
+    }
+    if (start_minute == "--") {
+        alert('시간을 입력해 주세요');
+        return;
+    }
+    if (end_hour == "--") {
+        alert('시간을 입력해 주세요');
+        return;
+    }
+    if (end_minute == "--") {
+        alert('시간을 입력해 주세요');
+        return;
+    }
+
+    $.ajax({
+        type: "POST",
+        url: "/insertWanted",
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(data) {
+            // 서버에서 성공적으로 응답을 받았을 때 실행되는 코드
+            $('#confirmModal').modal('show');
+        },
+        error: function(e) {
+            // 서버에서 오류 응답을 받았을 때 실행되는 코드
+            console.log("ERROR: ", e);
+        }
+    });
+
+
+
+});
+
+$(document).ready(function(){
+  $('.slider').slick({
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    prevArrow: "<button type='button' class='slick-prev'>&lt;</button>",
+    nextArrow: "<button type='button' class='slick-next'>&gt;</button>"
+  });
+});
+
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

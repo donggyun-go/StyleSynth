@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <title>imageList</title>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@700&display=swap" rel="stylesheet">
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/pagination.css" rel="stylesheet"/>
+    <link href="/static/css/navfooter.css" rel="stylesheet"/>
+    <link href="/static/css/Showoff.css" rel="stylesheet"/>
+    <!-- JS Code-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+    $('#searchBox').on('click', function(){
+        let searchType = $('#searchType').val();
+        let search = $('#search').val();
+        let dtype = $('#dtype').val();
+        let url = '/imageList?vpage=1';
+
+        if (searchType !== 'all') {
+            url += '&searchType=' + searchType;
+        }
+        if (search) {
+            url += '&search=' + search;
+        }
+        if (dtype !== 'all') {
+            url += '&dtype=' + dtype;
+        }
+        window.location.href = url;
+    });
+});
+
+    </script>
+</head>
+<body>
+<!-- Navigation-->
+<div th:replace="header.html"></div>
+<!-- Masthead-->
+<header class="masthead-show2" style="background-image: url('/static/image/banner001.jpg');">
+    <div class="container">
+        <div class="masthead-heading2">Photo</div>
+        <div class="masthead-subheading2">당신의 헤어스타일을 공유해 보세요</div>
+    </div>
+</header>
+<div class="write-box">
+    <div class="grid-search">
+        <div>
+            <button onclick="location.href='/post'" class="btn-create">글 작성</button>
+        </div>
+        <div>
+            <select id="dtype" class="dtype">
+                <option value="3" th:selected="${dtype==3}">전체</option>
+                <option value="1" th:selected="${dtype==1}">고객</option>
+                <option value="2" th:selected="${dtype==2}">디자이너</option>
+            </select>
+            <select id="searchType" class="searchType">
+                <option value="all" th:selected="${searchType=='all'}">전체</option>
+                <option value="title" th:selected="${searchType=='title'}">제목</option>
+                <option value="id" th:selected="${searchType=='id'}">작성자</option>
+            </select>
+            <input type="text" id="search" name="search" th:value="${search}">
+            <input type="button" id="searchBox" value="검색">
+        </div>
+    </div>
+    <!-- 검색결과 없을때-->
+    <div th:if="${showoffs == null or showoffs.size() == 0}">
+        <tr>
+            <td colspan="2">검색 결과가 없습니다.</td>
+        </tr>
+    </div>
+
+    <div class="cards">
+        <div th:each="post: ${showoffs}">
+            <a th:href="@{/edit/{seq}(seq=${post.seq})}" class="btn">
+                <div class="card">
+                    <div class="card__image-holder">
+                        <img class="card__image" th:src="@{|/uploads/${post.img1_path}|}" alt="이미지"/>
+                    </div>
+                    <div class="card-title">
+                        <div>
+                            <span th:text="${post.title}" class="card-option"></span>
+                        </div>
+                    </div>
+                    <div class="card-description">
+                        <div>
+                            <span th:text="${post.name}"></span>
+                        </div>
+                        <div>
+                            <span th:text="${#temporals.format(post.createdDate, 'yyyy-MM-dd HH:mm')}"></span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!--페이징-->
+    <div class="page_wrap">
+        <div class="page_nation" th:with="prevpage=${vpage-1}, nextpage=${vpage+1}">
+            <a class="arrow pprev" href="#"></a>
+            <a th:if="${prevpage >= 1}" th:href="@{/imageList(vpage=${prevpage}, dtype=${dtype}, search=${search}, searchType=${searchType})}"
+               class="arrow prev"></a>
+            <span th:if="${vpage > 10}">
+          <a th:href="@{/imageList(vpage=1, dtype=${dtype}, search=${search}, searchType=${searchType})}"><span>1</span></a>
+          <span>...</span>
+        </span>
+            <div th:with="start=1, end=ListSize">
+          <span th:each="i : ${#numbers.sequence(1, ListSize)}" th:if="${i <= ListSize}">
+            <a th:if="${i == vpage}" th:text="${i}"></a>
+            <a th:if="${i != vpage}" th:href="@{/imageList(vpage=${i}, dtype=${dtype}, search=${search}, searchType=${searchType})}">
+              <span th:text="${i}"></span>
+            </a>
+          </span>
+            </div>
+            <span th:if="${vpage < ListSize - 9}">
+        <!--<span th:if="${vpage < (ListSize != null ? ListSize - 9 : 0)}">-->
+          <span>...</span>
+          <a th:href="@{/imageList(vpage=${ListSize}, dtype=${dtype}, search=${search}, searchType=${searchType})}"><span th:text="${ListSize}"></span></a>
+        </span>
+            <a th:if="${nextpage <= ListSize}" th:href="@{/imageList(vpage=${nextpage}, dtype=${dtype}, search=${search}, searchType=${searchType})}"
+               class="arrow next"></a>
+            <a class="arrow nnext" href="#"></a>
+        </div>
+    </div>
+</div>
+</body>
+<div th:replace="footer.html"></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+</html>

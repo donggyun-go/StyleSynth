@@ -1,0 +1,123 @@
+table {
+  border-collapse: collapse;
+  width: 100%; /* 전체 테이블의 너비를 줄입니다. */
+}
+
+.table-container{
+    padding: 40px 0px;
+    margin: 0px;
+}
+
+th:nth-child(1), td:nth-child(1) {
+  width: 10%;
+  text-align:center;
+}
+
+th:nth-child(2), td:nth-child(2) {
+  width: 50%;
+}
+
+th:nth-child(3), td:nth-child(3) {
+  width: 10%;
+}
+
+th:nth-child(4), td:nth-child(4){
+  width: 15%;
+}
+th:nth-child(5), td:nth-child(5){
+    width: 8%;
+    text-align:center;
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+}
+
+.full-container{
+    padding: 200px;
+}
+
+.grid-search{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px 0px;
+}
+
+.grid-search select.searchType {
+    flex: 0 0 60px;
+    padding: 5px;
+    font-size: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    height: 35px;
+}
+
+.grid-search input[type="text"] {
+    flex: 0 0 150px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    height: 35px;
+}
+
+.grid-search input[type="button"] {
+    flex: 0 0 auto;
+    padding: 5px 10px;
+    background-color: #3f4448;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 35px;
+}
+
+.grid-search .grid-gap {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+header.masthead-show3 {
+  padding-top: 3rem;
+  padding-bottom: 1rem;
+  text-align: center;
+  color: #fff;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center center;
+  background-size: cover;
+}
+
+header.masthead-show3 .masthead-subheading3{
+  line-height: 1.5rem;
+  margin-bottom: 25px;
+}
+
+header.masthead-show3 .masthead-heading3 {
+  font-weight: 200;
+  line-height: 2.25rem;
+  margin-bottom: 1rem;
+  font-size: 50px;
+}
+
+@media (min-width: 768px) {
+  header.masthead-show3 {
+    padding-top: 8rem;
+    padding-bottom: 4rem;
+  }
+
+  header.masthead-show3 .masthead-subheading3 {
+    line-height: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  header.masthead-show3 .masthead-heading3 {
+    font-size: 80px;
+    font-weight: 700;
+    line-height: 3rem;
+    margin-bottom: 2rem;
+  }
+}

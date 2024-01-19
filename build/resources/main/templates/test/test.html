@@ -1,0 +1,76 @@
+$(document).ready(function() {
+$('#pagination-container').pagination({
+dataSource: function(done) {
+fetch('/myShowOff', {
+method: 'GET',
+headers: {
+'Content-Type': 'application/json'
+}
+})
+.then(function(response) {
+// 응답이 성공적으로 왔을 때
+if (response.ok) {
+// 응답 본문을 JSON으로 변환
+return response.json();
+}
+// 응답이 실패했을 때 에러를 던짐
+throw new Error('Network response was not ok');
+})
+.then(function(data) {
+// JSON으로 변환된 응답 데이터를 처리
+done(data);
+})
+.catch(function(error) {
+// 에러 처리
+console.log('There has been a problem with your fetch operation: ', error.message);
+done([]);
+});
+},
+locator: 'items',
+totalNumberLocator: function(response) {
+return response.totalCount;
+},
+alias: {
+pageNumber: 'page',
+pageSize: 'per_page'
+},
+pageSize: 10,
+pageRange: 1,
+beforePaging: function() {
+// 페이징 전에 이전 데이터 삭제
+var tbody = document.querySelector('#my-posts');
+if (tbody) {
+tbody.innerHTML = '';
+}
+},
+afterPaging: function(pagingData) {
+// 페이징 후 데이터 그리기
+var tbody = document.querySelector('#my-posts tbody');
+if (Array.isArray(pagingData) && tbody) {
+tbody.innerHTML = '';
+pagingData.forEach(function(post) {
+var tr = document.createElement('tr');
+
+var seqTd = document.createElement('td');
+seqTd.textContent = post.seq;
+tr.appendChild(seqTd);
+
+var titleTd = document.createElement('td');
+titleTd.textContent = post.title;
+tr.appendChild(titleTd);
+
+var dateTd = document.createElement('td');
+dateTd.textContent = post.createdDate;
+tr.appendChild(dateTd);
+
+var viewsTd = document.createElement('td');
+viewsTd.textContent = post.views;
+tr.appendChild(viewsTd);
+
+tbody.appendChild(tr);
+});
+}
+}
+}
+}); // 수정된 부분
+});

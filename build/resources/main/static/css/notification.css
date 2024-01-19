@@ -1,0 +1,53 @@
+.notification-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.notification-icon {
+  cursor: pointer;
+}
+
+.notification-list {
+  position: absolute;
+  top: 100%;
+  width: 300px;
+  max-height: 200px;
+  overflow-y: auto;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-top: none;
+  display: none;
+  /* 추가 스타일링 */
+  margin-top: 10px;
+}
+
+.notification-list ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.notification-list li {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.notification-list .actions {
+  margin-top: 5px;
+}
+
+.notification-list .btn-confirm,
+.notification-list .btn-delete {
+  padding: 5px 10px;
+  margin-right: 5px;
+}
+
+.notification-list .btn-confirm {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.notification-list .btn-delete {
+  background-color: #dc3545;
+  color: #fff;
+}

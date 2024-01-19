@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Face Swapper</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+		  integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="/static/css/aiSynthesis.css">
+	<link href="/static/css/navfooter.css" rel="stylesheet" />
+</head>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script th:inline="javascript">
+$(document).ready(function(){
+	$('#sbt').hide();
+		$('#sbt').on('click' ,function(){
+			$.ajax({
+			 url: './saveAiPhoto',
+			 type : 'post',
+			 success: function(response) {
+			 	if(response){
+			 		alert('저장완료');
+			 	}else{
+			 		alert('저장실패');
+			 	}
+			  },
+			  error: function(error) {
+				alert('치명적 오류');
+				console.log(error);
+			  }
+		});
+	});
+});
+	function loadOrg(e) {
+		const board = document.querySelector('.orgImg');
+		const file = e.currentTarget.files[0];
+		board.src = URL.createObjectURL(file);
+		board.style.visibility = 'visible';
+		document.getElementById('uploadPrompt').style.display = 'none';
+	}
+
+	function loadRef(e) {
+		const board = document.querySelector('.refImg');
+		const file = e.currentTarget.files[0];
+		board.src = URL.createObjectURL(file);
+		board.style.visibility = 'visible';
+		document.getElementById('uploadSynth').style.display = 'none';
+	}
+
+	async function sendOrg(frm) {
+		let formData = new FormData(frm);
+
+		const options = {
+			method: "post",
+			body: formData
+		}
+
+		try {
+			let response = await fetch(/*[[@{/rest/uploadOriginal}]]*/ '', options);
+			let img = await response.json();
+		} catch (err) {
+			alert(err);
+
+		}
+	}
+
+	async function sendRef(frm) {
+		let formData = new FormData(frm);
+
+		const options = {
+			method: "post",
+			body: formData
+		}
+
+		try {
+			let response = await fetch(/*[[@{/rest/uploadRef}]]*/ '', options);
+			let img = await response.json();
+
+			let result_tag = document.querySelector('#preview-image');
+			result_tag.src = img.imgPath;
+			$('#sbt').show();
+
+		} catch (err) {
+			alert("hohoho" + err);
+			$('#sbt').show();
+		}
+	}
+
+</script>
+
+<!-- Navigation-->
+<div th:replace="header.html"></div>
+<!-- Masthead-->
+<header class="masthead-show3" style="background-image: url('/static/image/header-bg-login.jpg');">
+	<div class="container">
+		<div class="masthead-heading3">Change Your Style</div>
+		<div class="masthead-subheading3">Welcome To Our Studio!</div>
+	</div>
+</header>
+
+<body>
+<div class="padding-box">
+	<h1>AI 헤어스타일 합성</h1>
+	<div class="main-container">
+		<div class="box">
+			<div class="original-image">
+				<form id="form_org" action="" enctype="multipart/form-data">
+					<h2>이미지</h2>
+					<div class="image-box" onclick="document.getElementById('uploadOriginal').click();">
+						<input type="file" id="uploadOriginal" name="uploadOriginal" onchange="loadOrg(event);" style="display: none;">
+						<p id="uploadPrompt">클릭하여 사진을 올려주세요</p>
+						<img id="preview-image" alt="Preview" src="" name="preview-image" class="orgImg" style="visibility: hidden;">
+					</div>
+					<div class="button-container">
+						<input type="button" onclick="sendOrg(form_org)" value="확인" class="decide"/>
+					</div>
+				</form>
+			</div>
+			<div class="swap-image-and-buttons">
+				<form id="form_ref" action="" enctype="multipart/form-data">
+					<h2>합성할 사진</h2>
+					<div class="image-upload" onclick="document.getElementById('uploadRef').click();">
+						<input type="file" id="uploadRef" name="uploadRef" onchange="loadRef(event);" style="display: none;">
+						<p id="uploadSynth">클릭하여 사진을 올려주세요</p>
+						<img id="preview-image2" alt="Preview" class="refImg" style="visibility: hidden;">
+					</div>
+					<div class="button-container">
+						<input type="button" onclick="sendRef(form_ref)" value="합성하기" class="dye"></button>
+						<input type="button"  id="sbt" value="저장하기" class="decide"></button>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="gender-selection">
+			<div class="gender-buttons">
+				<button class="gender-button" id="male-button">남자</button>
+				<button class="gender-button" id="female-button">여자</button>
+			</div>
+		</div>
+		<div class="image-grid-container">
+			<div class="image-grid">
+				<!-- 20개의 이미지 셀을 생성 -->
+				<div class="image-cell" onclick="uploadPredefinedImage('https://via.placeholder.com/150', 'preview-image2')">
+					<img src="https://via.placeholder.com/150" alt="Image Option 1">
+					<button>선택하기</button>
+				</div>
+				<div class="image-cell" onclick="uploadPredefinedImage('/static/image/ca02.jpg', 'preview-image2')">
+					<img src="/static/image/ca02.jpg" alt="Image Option 1">
+					<button>선택하기</button>
+				</div>
+				<div class="image-cell" onclick="chooseImage(this)">
+					<img src="https://via.placeholder.com/150" alt="Image Option 1">
+					<button>선택하기</button>
+				</div>
+				<div class="image-cell" onclick="chooseImage(this)">
+					<img src="https://via.placeholder.com/150" alt="Image Option 1">
+					<button>선택하기</button>
+				</div>
+				<div class="image-cell" onclick="chooseImage(this)">
+					<img src="https://via.placeholder.com/150" alt="Image Option 1">
+					<button>선택하기</button>
+				</div>
+				<div class="image-cell" onclick="chooseImage(this)">
+					<img src="https://via.placeholder.com/150" alt="Image Option 1">
+					<button>선택하기</button>
+				</div>
+				<div class="image-cell" onclick="chooseImage(this)">
+					<img src="https://via.placeholder.com/150" alt="Image Option 1">
+					<button>선택하기</button>
+				</div>
+				<div class="image-cell" onclick="chooseImage(this)">
+					<img src="https://via.placeholder.com/150" alt="Image Option 1">
+					<button>선택하기</button>
+				</div>
+				<div class="image-cell" onclick="chooseImage(this)">
+					<img src="https://via.placeholder.com/150" alt="Image Option 1">
+					<button>선택하기</button>
+				</div>
+				<div class="image-cell" onclick="chooseImage(this)">
+					<img src="https://via.placeholder.com/150" alt="Image Option 1">
+					<button>선택하기</button>
+				</div>
+				<div class="image-cell" onclick="chooseImage(this)">
+					<img src="https://via.placeholder.com/150" alt="Image Option 1">
+					<button>선택하기</button>
+				</div>
+				<div class="image-cell" onclick="chooseImage(this)">
+					<img src="https://via.placeholder.com/150" alt="Image Option 1">
+					<button>선택하기</button>
+				</div>
+				<div class="image-cell" onclick="chooseImage(this)">
+					<img src="https://via.placeholder.com/150" alt="Image Option 1">
+					<button>선택하기</button>
+				</div>
+				<div class="image-cell" onclick="chooseImage(this)">
+					<img src="https://via.placeholder.com/150" alt="Image Option 1">
+					<button>선택하기</button>
+				</div>
+				<div class="image-cell" onclick="chooseImage(this)">
+					<img src="https://via.placeholder.com/150" alt="Image Option 1">
+					<button>선택하기</button>
+				</div>
+				<div class="image-cell" onclick="chooseImage(this)">
+					<img src="https://via.placeholder.com/150" alt="Image Option 1">
+					<button>선택하기</button>
+				</div>
+				<div class="image-cell" onclick="chooseImage(this)">
+					<img src="https://via.placeholder.com/150" alt="Image Option 1">
+					<button>선택하기</button>
+				</div>
+				<div class="image-cell" onclick="chooseImage(this)">
+					<img src="https://via.placeholder.com/150" alt="Image Option 1">
+					<button>선택하기</button>
+				</div>
+				<div class="image-cell" onclick="chooseImage(this)">
+					<img src="https://via.placeholder.com/150" alt="Image Option 1">
+					<button>선택하기</button>
+				</div>
+				<div class="image-cell" onclick="chooseImage(this)">
+					<img src="https://via.placeholder.com/150" alt="Image Option 1">
+					<button>선택하기</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+
+		// 남자 버튼 클릭 시 이벤트 처리 함수
+		function handleMaleButtonClick() {
+			const maleButton = document.getElementById("male-button");
+			const maleContent = document.getElementById("male-content");
+			const femaleButton = document.getElementById("female-button");
+			const femaleContent = document.getElementById("female-content");
+
+			// 모든 버튼의 배경색 초기화
+			maleButton.style.backgroundColor = "";
+			femaleButton.style.backgroundColor = "";
+
+			// 해당 버튼의 배경색 변경
+			maleButton.style.backgroundColor = "#0056b3";
+
+			// 모든 내용 숨기기
+			maleContent.style.display = "none";
+			femaleContent.style.display = "none";
+
+			// 해당 내용 보여주기
+			maleContent.style.display = "block";
+		}
+
+		// 여자 버튼 클릭 시 이벤트 처리 함수
+		function handleFemaleButtonClick() {
+			const maleButton = document.getElementById("male-button");
+			const maleContent = document.getElementById("male-content");
+			const femaleButton = document.getElementById("female-button");
+			const femaleContent = document.getElementById("female-content");
+
+			// 모든 버튼의 배경색 초기화
+			maleButton.style.backgroundColor = "";
+			femaleButton.style.backgroundColor = "";
+
+			// 해당 버튼의 배경색 변경
+			femaleButton.style.backgroundColor = "#0056b3";
+
+			// 모든 내용 숨기기
+			maleContent.style.display = "none";
+			femaleContent.style.display = "none";
+
+			// 해당 내용 보여주기
+			femaleContent.style.display = "block";
+		}
+
+		// 버튼 클릭 이벤트 핸들러 등록
+		const maleButton = document.getElementById("male-button");
+		maleButton.addEventListener("click", handleMaleButtonClick);
+
+		const femaleButton = document.getElementById("female-button");
+		femaleButton.addEventListener("click", handleFemaleButtonClick);
+	</script>
+<script>
+	function uploadPredefinedImage(imageUrl, previewElementId) {
+	  const imagePreview = document.getElementById(previewElementId);
+	  imagePreview.src = imageUrl;
+	  imagePreview.style.visibility = 'visible';
+	  const uploadPrompt = imagePreview.nextElementSibling;
+	  uploadPrompt.style.display = 'none';
+	}
+	</script>
+<div th:replace="footer.html"></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+		crossorigin="anonymous"></script>
+
+</body>
+
+</html>

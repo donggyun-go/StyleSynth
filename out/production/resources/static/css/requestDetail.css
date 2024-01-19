@@ -1,0 +1,514 @@
+@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+.container {
+  margin: 0 auto;
+  max-width: 80%;
+  padding: 50px 20px;
+}
+
+.row {
+  display: flex;
+}
+
+/* Request information */
+.request-info {
+  border: 1px solid #ddd;
+  padding: 50px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.img-grid {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.img-grid div {
+    flex-basis: calc(50% - 10px);
+    margin-bottom: 20px;
+}
+
+.img-grid img {
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+    object-fit: cover;
+}
+
+.basic-info, .additional-info, .request-content, .request-date {
+  margin-top: 20px;
+}
+
+.basic-info ul, .additional-info ul {
+  list-style-type: none;
+  padding: 0px;
+}
+
+.submit-btn a {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.submit-btn a:hover {
+  background-color: #0056b3;
+}
+
+/* Proposal list */
+
+.proposal-container {
+  display: flex;
+  justify-content: center;
+}
+
+.proposal {
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  width: 80%;
+}
+
+.proposal-content {
+  display: flex;
+  align-items: center;
+}
+
+.proposal-img {
+  flex: 0 0 100px;
+  margin-right: 10px;
+}
+
+.proposal-img img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.info-container {
+  flex: 1;
+}
+
+.name-rating {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.price-time {
+  font-size: 16px;
+}
+
+.review {
+  margin-top: 10px;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.proposal-link {
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  color: black;
+}
+
+.proposal-link .proposal-content {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.proposal-link .proposal-img {
+  flex: 0 0 100px;
+}
+
+.proposal-link .proposal-img img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.info-container {
+    flex: 1;
+}
+
+.submit-button {
+    text-align: right;
+    margin-top: 30px;
+}
+
+.submit-link {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #3f4448;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 35px;
+    text-decoration: none;
+}
+
+.submit-link:hover {
+    background-color: #2f3438;
+}
+
+.proposal-link {
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  color: black;
+}
+
+.proposal-link .proposal-content {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.proposal-link .proposal-img {
+  flex: 0 0 100px;
+}
+
+.proposal-link .proposal-img img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.request-info h4, .request-content h4{
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.request-info ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.request-info li {
+  margin-bottom: 10px;
+}
+
+.request-content {
+  margin-top: 40px;
+}
+
+.request-content span {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.date {
+  margin-top: 20px;
+  font-size: 16px;
+}
+
+.basic-info h4,
+.additional-info h4 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.basic-info li,
+.additional-info li {
+  margin-bottom: 5px;
+}
+
+.basic-info span,
+.additional-info span {
+  font-size: 16px;
+}
+
+
+header.masthead-show3 {
+  padding-top: 1rem;
+  padding-bottom: 0.5rem;
+  color: #fff;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center center;
+  background-size: cover;
+}
+
+header.masthead-show3 .masthead-subheading3 {
+  line-height: 1.25rem;
+  margin-bottom: 15px;
+}
+
+header.masthead-show3 .masthead-heading3 {
+  font-weight: 700;
+  line-height: 1.75rem;
+  margin-bottom: 0.5rem;
+  font-size: 30px;
+}
+
+@media (min-width: 768px) {
+  header.masthead-show3 {
+    padding-top: 4rem;
+    padding-bottom: 2rem;
+  }
+
+  header.masthead-show3 .masthead-subheading3 {
+    line-height: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  header.masthead-show3 .masthead-heading3 {
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 2rem;
+    margin-bottom: 1rem;
+  }
+}
+
+.rate {
+    display: inline-block;
+    border: 0;
+    margin-right: 5px;
+}
+
+.rating {
+  position: relative;
+  top: 6px;
+}
+
+.stars {
+    display: inline-block;
+    font-size: 1rem;
+    color: #ddd;
+}
+
+.star-half:before {
+    content: "\f089";
+    font-family: FontAwesome;
+    position: relative;
+    display: inline-block;
+    width: 16px;
+    overflow: hidden;
+    color: #f73c32;
+}
+
+.star-full:before {
+    content: "\f005";
+    font-family: FontAwesome;
+    position: relative;
+    display: inline-block;
+    width: 16px;
+    overflow: hidden;
+    color: #f73c32;
+}
+
+.rating-label {
+  font-size: 16px;
+  font-weight: normal;
+  color: #777;
+}
+
+.proposal-container2 {
+  width: 100%;
+  height:100%;
+  margin: auto;
+  padding: 30px;
+  border: 1px solid #ddd;
+  max-width: 700px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.flex-container {
+  display: flex;
+  align-items: normal;
+  gap: 20px;
+  padding: 20px;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+}
+
+.flex-container > wide {
+  flex: 1;
+  box-sizing: border-box;
+}
+
+.flex-container img {
+  max-width: 300px;
+  height: 400px;
+  box-sizing: border-box;
+}
+
+.flex-container2 {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.flex-container2 > div {
+  flex: 0 0 150px;
+  box-sizing: border-box;
+}
+
+.flex-container2 .wide {
+  flex: 1;
+  box-sizing: border-box;
+}
+
+.flex-container2 label {
+  display: block;
+  margin-bottom: 5px;
+  box-sizing: border-box;
+}
+
+.flex-container2 textarea {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.portfolio-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+}
+
+.portfolio-container img {
+    width: 150px; /* 너비를 1/3로 설정하고, 이미지 사이의 간격을 위해 10px을 뺌 */
+    height: 150px; /* 높이를 자동으로 설정하여 원본 비율 유지 */
+    margin:0 auto;
+
+}
+
+#procedure,
+#comment,
+#career {
+  width: 100%;
+  height: 100px;
+  box-sizing: border-box;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  color: black !important;
+}
+
+.slick-prev,
+.slick-next {
+  color: blue;
+  position: absolute;
+  top: 50%;
+  opacity: 0.5;
+  transition: opacity 0.15s ease-in-out, transform 0.15s ease-in-out;
+  z-index: 2;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.slick-prev {
+  left: -15px;
+}
+
+.slick-next {
+  right: -15px;
+}
+
+.slick-prev:hover,
+.slick-next:hover {
+  opacity: 1;
+}
+
+.info-window {
+  background-color: #f7f7f7;
+  border-radius: 5px;
+  padding: 15px;
+  width: 325px;
+  display: flex;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.info-window-image-container {
+  width: 100px;
+  height: 100px;
+  margin-right: 10px;
+  overflow: hidden;
+  border-radius: 50%;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.info-window-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.info-window-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-window-name {
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-size: 18px;
+  color: #333;
+}
+
+.info-window-price,
+.info-window-time,
+.info-window-review {
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 3px;
+}
+
+.info-window-review {
+  font-style: italic;
+}
+
+.info-window-button {
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 3px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.info-window-button:hover {
+  background-color: #45a049;
+}
+
+
+.info-window-name {
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-size: 16px; /* font-size를 16px로 수정 */
+}
+
+.info-window-price,
+.info-window-time,
+.info-window-review {
+  display: block;
+  font-size: 14px; /* font-size를 14px로 수정 */
+}

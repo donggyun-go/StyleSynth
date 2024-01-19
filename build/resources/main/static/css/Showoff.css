@@ -1,0 +1,462 @@
+
+/* Font */
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,200,300,600,700,900');
+
+/* Colors */
+:root {
+--white: #ffffff;
+--lightBG: #dce1df;
+--salmon: #ff6666;
+--teal: #0096a0;
+--tealMid: #0ebac7;
+--tealContrast: #33ffff;
+--tealShade: #007c85;
+--darkGrey: #4f585e;
+}
+
+.btn-write {
+  text-align: right;
+  margin-top: 20px;
+  margin-right: 10px;
+}
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.form-group textarea {
+  height: 200px;
+}
+
+.submit-button {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.button-left {
+  margin-right: auto;
+}
+
+.button-right {
+  margin-left: auto;
+}
+
+.submit-button button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.submit-button button:first-child {
+  background-color: #f2f2f2;
+  color: #333;
+}
+
+.submit-button button:first-child:hover {
+  background-color: #e0e0e0;
+}
+
+.submit-button button:last-child {
+  background-color: #00bcd4;
+  color: #fff;
+}
+
+.submit-button button:last-child:hover {
+  background-color: #008ba3;
+}
+/* write */
+.comment-input-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.comment-input {
+  flex: 1;
+  height: 80px; /* 높이 조정 */
+  resize: none; /* 크기 조절 비활성화 */
+}
+
+.comment-button {
+  width: 80px;
+  height: 80px; /* 텍스트 창과 동일한 크기 */
+  margin-left: 10px;
+}
+
+.comment-form, .comment-title {
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.title,
+.subtitle {
+  border-bottom: 1px solid #ccc;
+  padding: 5px; /* 위아래로 내부 여백 추가 */
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px;
+}
+
+.edit-button{
+ margin-right: 10px;
+}
+.comment-section {
+  align-items: center;
+}
+
+.title, .comment-title, .comment-write{
+    font-weight: bold;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding-top: 20px;
+}
+
+.content div {
+font-size: 14px;
+line-height: 1.5;
+}
+
+.subtitle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f3f3f3;
+  padding: 5px 10px;
+  font-size: 12px;
+}
+
+.author {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.date-views {
+  font-size: 12px;
+  color: #888;
+}
+
+.comment-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.comment-item {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+
+}
+
+
+.comment-content {
+  margin-top: 5px;
+
+}
+
+.comment-form, .comment-input, .comment-button, .comment-title, .edit-button, .delete-button{
+    border-radius: 8px;
+}
+
+.form-group .textarea{
+    height: 450px;
+}
+
+.write-box{
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+/* 카드 스타일 */
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 5px;
+  margin-bottom: 20px;
+}
+
+.card {
+  width: 300px; /* 카드의 너비 값으로 설정 */
+  height: 450px; /* 카드의 높이 값으로 설정 */
+  margin-bottom: 20px;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+}
+
+.card__image {
+  width: 100%;
+  height: 350px; /* 이미지의 높이 값으로 설정 */
+  object-fit: cover;
+  border-radius: 10px 10px 0 0;
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.card-description {
+  font-size: 14px;
+  color: #888;
+  max-height: 60px; /* 정보가 들어가는 칸의 최대 높이 설정 */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-actions {
+  margin-top: auto;
+  text-align: center;
+}
+
+.card-actions a {
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: #00bcd4;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.card-actions a:hover {
+  background-color: #0097a7;
+}
+
+  @media (max-width: 768px) {
+    .card {
+      width: calc(50% - 20px);
+    }
+  }
+
+  @media (max-width: 576px) {
+    .card {
+      width: calc(100% - 20px);
+    }
+  }
+
+.board-width{
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+.write-box{
+    padding: 50px;
+}
+.write-box .grid-search {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px 100px;
+}
+
+.write-box .grid-search h3 {
+    flex-grow: 1;
+    text-align: left;
+}
+
+.write-box .grid-search div {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.write-box .grid-search select.dtype,
+.write-box .grid-search select.searchType {
+    flex: 0 0 60px;
+    padding: 5px;
+    font-size: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.write-box .grid-search input[type="text"] {
+    flex: 0 0 150px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#dtype, #searchType, #search, #searchBox {
+    height: 35px;
+}
+
+.write-box .grid-search input[type="button"] {
+    flex: 0 0 auto;
+    padding: 5px 10px;
+    background-color: #3f4448;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+.page_wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px 20px 20px;
+}
+
+.page_nation {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-create {
+    height: 35px;
+    padding: 5px 10px;
+    background-color: #3f4448;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+.content img.detail_card__image {
+    max-width: 70%;
+    max-height: 250px; /* 적당한 높이 값으로 설정 */
+    object-fit: contain;
+}
+
+.comment-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px; /* 원하는 간격으로 조정 */
+}
+.comment-name{
+    font-weight: bold;
+}
+.comment-author{
+    margin-right: 10px;
+    color: #888;
+    font-size: 15px;
+}
+.comment-date {
+    color: #888;
+    font-size: 15px;
+}
+
+.centered-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  padding: 200px;
+}
+
+.text-container {
+  text-align: center;
+}
+
+.title-content {
+  font-size: 140px;
+  font-weight: bold;
+  font-family: 'Kalam', cursive;
+}
+header.masthead-show2 {
+  padding-top: 9rem;
+  padding-bottom: 2rem;
+  text-align: center;
+  color: #212529;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center center;
+  background-size: cover;
+}
+
+header.masthead-show2 .masthead-subheading2{
+  line-height: 1.5rem;
+  margin-bottom: 25px;
+}
+
+header.masthead-show2 .masthead-heading2 {
+  font-weight: 700;
+  line-height: 3.25rem;
+  margin-bottom: 2rem;
+  font-size: 140px;
+  font-weight: bold;
+  font-family: 'Kalam', cursive;
+}
+
+@media (min-width: 768px) {
+  header.masthead-show2 {
+    padding-top: 9rem;
+    padding-bottom: 2rem;
+  }
+
+  header.masthead-show2 .masthead-subheading2 {
+    line-height: 2.25rem;
+    margin-bottom: 2rem;
+  }
+
+  header.masthead-show2 .masthead-heading2 {
+    font-size: 140px;
+    font-weight: 700;
+    line-height: 4.5rem;
+    margin-bottom: 4rem;
+  }
+}
+    .comment-buttons{
+    padding-left: 10px;
+}
+.comment-buttons button {
+    font-size: 10px;
+    padding: 2px 6px;
+}
+
+.comment-buttons .btn-sm {
+    font-size: 9px;
+}
+
+.comment-edit-form {
+  display: flex;
+  align-items: center;
+}
+
+.comment-textarea {
+  flex: 1;
+  width: 80%;
+}
+
+.save-button {
+  width: 62px;
+  height: 62px; /* 텍스트 창과 동일한 크기 */
+  margin-left: 10px;
+}

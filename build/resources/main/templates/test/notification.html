@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <link href="../../static/css/notification.css" rel="stylesheet">
+</head>
+<body>
+<div class="notification-wrapper">
+    <div class="notification-icon">
+        <span class="fa fa-bell"></span>
+    </div>
+
+    <div class="notification-list">
+        <ul id="notification-items"></ul>
+    </div>
+</div>
+
+<!-- 알림 템플릿 -->
+<template id="notification-template">
+    <li>
+        <span class="message"></span>
+        <div class="actions">
+            <button class="btn-confirm">확인</button>
+            <button class="btn-delete">삭제</button>
+        </div>
+    </li>
+</template>
+
+<script>
+    // 알림 아이콘 클릭 시 알림 목록 표시
+    const notificationIcon = document.querySelector('.notification-icon');
+    const notificationList = document.querySelector('.notification-list');
+    notificationIcon.addEventListener('click', () => {
+        notificationList.style.display = 'block';
+    });
+
+    // 알림을 화면에 표시하는 함수
+    function showNotification(message) {
+        const notificationTemplate = document.getElementById('notification-template');
+        const notificationItems = document.getElementById('notification-items');
+
+        // 알림 템플릿 복사
+        const notification = notificationTemplate.content.cloneNode(true);
+        notification.querySelector('.message').textContent = message;
+
+        // 확인 버튼 클릭 이벤트 처리
+        const confirmButton = notification.querySelector('.btn-confirm');
+        confirmButton.addEventListener('click', () => {
+            // 확인 버튼 동작 구현
+            console.log('알림 확인:', message);
+        });
+
+        // 삭제 버튼 클릭 이벤트 처리
+        const deleteButton = notification.querySelector('.btn-delete');
+        deleteButton.addEventListener('click', () => {
+            // 삭제 버튼 동작 구현
+            console.log('알림 삭제:', message);
+            notificationItems.removeChild(notification);
+        });
+
+        // 알림 목록에 추가
+        notificationItems.appendChild(notification);
+    }
+
+    // 예시: 알림 테스트
+    showNotification('예약이 완료되었습니다.');
+    showNotification('새로운 제안이 도착했습니다.');
+    showNotification('새로운 댓글이 달렸습니다.');
+</script>
+</body>
+</html>

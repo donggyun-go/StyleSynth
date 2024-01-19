@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+    $('#local').on('change' ,function(){
+          var city =  $('#city');
+          var thisVal =$('#local').val();
+
+          var opH = "";
+          city.find('option').remove();
+          opH = "<option value=''>전체</option>";
+
+          if(thisVal != ""){
+              $.ajax({
+                  url : '../findCity/',
+                  type : 'get',
+                  data : {'local':thisVal},
+
+                  success : function(data){
+                      var parsedData = JSON.parse(data); // JSON 데이터를 객체로 변환
+                      opH = "<option value=''>전체</option>";
+                          $.each(parsedData.citys, function(index, value) { // 객체의 citys 배열에 접근
+                          opH += '<option value="' + value + '">' + value + '</option>';
+                          });
+                      city.append(opH);
+                  },
+                  error : function(){
+                      alert('error')
+                  }
+              });
+          }
+
+       });
+    });
+ </script>
+</head>
+<body>
+<form>
+  <table>
+    <tr><td>회원가입</td></tr>
+    <tr><td>id</td><td><input type="text" name="id"></td></tr>
+    <tr><td>id</td><td><input type="text" name="pw"></td></tr>
+    <tr><td>id</td><td><input type="text" name="name"></td></tr>
+    <tr><td>id</td><td><input type="text" name="birthday"></td></tr>
+    <!--   address1,2 받아야 하는 셀렉트-->
+    <select name="ch" name="address1" id="local" title="시도선택">
+      <option value="">전체</option>
+      <option value="서울특별시">서울특별시 </option>
+      <option value="부산광역시">부산광역시 </option>
+      <option value="대구광역시">대구광역시 </option>
+      <option value="인천광역시">인천광역시 </option>
+      <option value="광주광역시">광주광역시 </option>
+      <option value="세종특별자치시">세종특별자치시 </option>
+      <option value="대전광역시">대전광역시 </option>
+      <option value="울산광역시">울산광역시 </option>
+      <option value="경기도">경기도 </option>
+      <option value="강원도">강원도 </option>
+      <option value="충청북도">충청북도 </option>
+      <option value="충청남도">충청남도 </option>
+      <option value="전라북도">전라북도 </option>
+      <option value="전라남도">전라남도 </option>
+      <option value="경상북도">경상북도 </option>
+      <option value="경상남도">경상남도 </option>
+      <option value="제주특별자치도">제주특별자치도 </option>
+    </select>
+    <select name="address2" id="city" title="시군구">
+      <option value="">전체</option>
+    </select>
+    <tr><td>id</td><td><input type="text" name="email"></td></tr>
+    <tr><td>id</td><td><input type="text" name="phone_num"></td></tr>
+    <!--  hair_condition int -->
+    <!--    hair_length int  -->
+    <!--    head_shape int -->
+    <!--    dye_times int -->
+    <!--    perm_times int-->
+    <tr><td>id</td><td><input type="text" name="detailed_address"></td></tr>
+
+  </table>
+</form>
+
+</body>
+</html>

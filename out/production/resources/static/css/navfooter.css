@@ -1,0 +1,457 @@
+/* Dropdown border style */
+.dropdown-menu {
+    border-radius: 0;  /* Make the corners right-angled */
+    margin: 0;  /* Remove margin */
+    padding: 0;  /* Remove padding */
+}
+
+/* Dropdown items divider */
+.my-navbar .dropdown-menu .dropdown-item {
+    border-bottom: 0.5px solid #8d97ad !important;
+    display: block;
+    clear: both;
+    width: 100%;
+    padding: 0.75rem 1.5rem;
+    text-align: inherit;
+    white-space: nowrap;
+    color: #212529;
+}
+
+/* Remove the border from the last item */
+.my-navbar .dropdown-menu .dropdown-item:last-child {
+    border-bottom: none;
+}
+
+.my-navbar {
+    position: fixed;  /* Change from relative to fixed */
+    top: 0;  /* Add this */
+    left: 0;  /* Add this */
+    width: 100%;  /* Add this to make the navbar span the full width of the screen */
+    z-index: 1000 !important;
+    transition: background-color 0.5s ease;
+    padding: 20px;
+    border-bottom: 1px solid #8d97ad;
+}
+.nav-item{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.navbar-transparent {
+    background: transparent !important;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.navbar-colored {
+    background-color: #3f4448 !important;
+}
+
+.login-list li {
+    font-size: 14px; /* 원하는 텍스트 크기로 수정 */
+    font-family: 'Roboto', sans-serif; /* 원하는 폰트로 수정 */
+}
+
+/* Full page image */
+.full-page-image {
+    position: relative;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    z-index: -1;
+    background: #141618;
+}
+
+.full-page-image img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    animation: zoom 10s infinite;
+    opacity: 0.5;
+}
+
+/* Zoom in/out animation */
+@keyframes zoom {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.centered-text {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 4vw; /* 원하는 텍스트 크기로 수정 */
+    text-align: center;
+    font-weight: bold;
+}
+
+.centered-text-sub {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 2vw; /* 원하는 텍스트 크기로 수정 */
+    text-align: center;
+    font-weight: bold;
+}
+
+#gallery {
+  display: flex;
+  list-style: none;
+  padding: 3rem;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+#gallery li {
+  overflow: hidden;  /* Add this */
+  flex: 0 0 50%;
+  max-width: 400px;
+  margin-bottom: 3rem;
+}
+
+#gallery img {
+  transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;  /* Move this here */
+  width: 400px;
+  height: 400px;
+}
+
+
+#gallery li:hover img {
+  transform: scale(1.1);  /* Image enlargement */
+  filter: blur(5px);
+}
+
+.overlay-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 1.5rem;
+}
+
+.img-text {
+  position: relative;
+  text-align: center;
+}
+
+.img-text img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+@media (max-width: 1600px) {
+  #gallery {
+    padding: 1.5rem;
+  }
+
+  #gallery li {
+    flex-basis: 50%;
+    max-width: 200px;
+    margin-bottom: 1.5rem;
+  }
+
+  #gallery img {
+    width: 200px;
+    height: 200px;
+  }
+
+  .overlay-text {
+    font-size: 0.75rem;
+  }
+}
+
+.custom-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #3f4448;
+  height: 700px;
+}
+
+.custom-content {
+  flex: 1;
+  color: white;
+  /* 추가적인 스타일링을 적용하세요 */
+}
+
+.custom-image {
+  width: 49.55vw;  /* 전체 화면 너비의 절반으로 설정 */
+  height: auto;
+  height: 700px;
+}
+
+.my-custom-div {
+  background-color: white;
+  padding: 20px;
+  margin: 20px;
+}
+
+.font-eng   {
+    font-family: 'Playfair Display', serif;
+    color: #cabe9f;
+    font-weight: 400 !important;
+    line-height: 1.35;
+    margin-bottom: 0.5rem;
+    margin-top: 0;
+}
+
+.content-box {
+    padding: 0 200px !important;
+}
+
+@media (max-width: 1600px) {
+  .content-box .static-content {
+    padding: 1rem;
+  }
+
+  .content-box .static-content h3 {
+    font-size: 1.2rem;
+  }
+  .font-eng {
+    font-family: 'Playfair Display', serif;
+  }
+
+  .content-box .static-content h4 {
+    font-size: 1rem;
+  }
+
+  .content-box .static-content p {
+    font-size: 0.8rem;
+    line-height: 1.2;
+  }
+
+  .content-box .static-content .view-more-btn {
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+  }
+}
+
+* {
+box-sizing: border-box;
+}
+
+.text-white {
+  color: #fff;
+  margin-bottom: 70px;
+}
+
+footer {
+  background-color: #3f4448;
+  padding: 40px 0;
+  color: #fff;
+  text-align: center;
+}
+
+.footer-content {
+  margin-bottom: 20px;
+}
+
+.footer-link {
+  color: #fff;
+  text-decoration: none;
+  margin-right: 10px;
+}
+
+.footer-link:hover {
+  text-decoration: underline;
+}
+
+.view-more-btn {
+  display: inline-block;
+  padding: 1em 2em;
+  text-decoration: none;
+  font-weight: bold;
+  color: beige;
+  border: 2px solid beige;
+  background: transparent;
+  position: relative;
+  overflow: hidden;
+  transition: color 0.3s ease-in-out;
+}
+
+.view-more-btn::before {
+  content: "VIEW MORE";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: beige;
+  transition: left 0.3s ease-in-out;
+  z-index: -1;
+  color: #343a40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+}
+
+.view-more-btn:hover::before {
+  left: 0;
+  opacity: 1;
+}
+
+.view-more-btn i {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.view-more-btn:hover i {
+  opacity: 1;
+}
+
+.view-more-btn:hover {
+  color: #343a40;
+  background-color: beige;
+}
+
+header.masthead {
+  padding-top: 10.5rem;
+  padding-bottom: 6rem;
+  text-align: center;
+  color: #fff;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center center;
+  background-size: cover;
+}
+
+header.masthead .masthead-subheading {
+  font-size: 1.5rem;
+  line-height: 1.5rem;
+  margin-bottom: 25px;
+  font-family: 'Kalam', cursive;
+}
+
+header.masthead .masthead-heading {
+  font-size: 3.25rem;
+  font-weight: 700;
+  line-height: 3.25rem;
+  margin-bottom: 2rem;
+  font-family: 'Kalam', cursive;
+}
+
+@media (min-width: 768px) {
+  header.masthead {
+    padding-top: 17rem;
+    padding-bottom: 12.5rem;
+  }
+
+  header.masthead .masthead-subheading {
+    font-size: 2.25rem;
+    font-style: italic;
+    line-height: 2.25rem;
+    margin-bottom: 2rem;
+  }
+
+  header.masthead .masthead-heading {
+    font-size: 4.5rem;
+    font-weight: 700;
+    line-height: 4.5rem;
+    margin-bottom: 4rem;
+  }
+}
+
+.notification-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notification-icon {
+  cursor: pointer;
+}
+
+.notification-icon span.fa-bell {
+  font-size: 20px;
+  color: #9fa2a4;
+  line-height: 2;
+}
+
+.notification-list {
+  position: absolute;
+  top: 90%;
+  right: -140px;
+  transform: translate(-50%, -10%);
+  z-index: 1;
+  width: 300px;
+  max-height: 200px;
+  overflow-y: auto;
+  background-color: #333;
+  border: 1px solid #444;
+  border-top: none;
+  display: none;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.notification-list::-webkit-scrollbar {
+  width: 5px;
+  background-color: #333;
+}
+
+.notification-list::-webkit-scrollbar-thumb {
+  background-color: #555;
+  border-radius: 5px;
+}
+
+.notification-list ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.notification-list li {
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  background-color: #555;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.notification-list .actions {
+  margin-top: 5px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+#btn-delete-all,
+.notification-list .btn-delete {
+  padding: 3px 8px;
+  margin-right: 3px;
+  font-size: 10px;
+  border: none;
+  background-color: #888;
+  color: #EEEEEE;
+  border-radius: 4px;
+}
+
+#btn-delete-all,
+.notification-list .btn-delete {
+  color: #EEEEEE;
+}
+
+.notification-list .message, #no-notification-text {
+  padding: 5px;
+  font-size: 12px;
+  line-height: 1.4;
+  color: #EEEEEE;
+}
+#btn-delete-all {
+    float: right;
+}
+
+.navbar-nav {
+    display: flex;
+}

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>아이디 찾기</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+
+</head>
+
+<body topmargin='0' leftmargin='10' style='margin-bottom:0'>
+<table cellpadding='0' cellspacing='0' width='410' class='member_txt'>
+    <form name='com_member_findid' method='get'>
+        <tr>
+            <td><img alt="" src='/static/image/login_findid.gif'></td>
+        </tr>
+
+        <!--아이디 찾기--->
+        <tr>
+            <td height='22'></td>
+        </tr>
+        <tr>
+            <td style='line-height:14pt' height='35'>
+                아이디를 잊어버리셨나요?<br>
+                아이디와 이메일을 입력해주세요.
+            </td>
+        </tr>
+</table>
+
+<br>
+
+<table border='3' cellpadding='0' cellspacing='3' style='border-collapse:collapse;margin-top:3' bordercolor='E3E2E2'
+       width='410' rules='none' class='member_txt' id="findIdTable">
+    <tr valign='bottom'>
+        <td height='30' style='padding-left:10'>
+            <b style='font-family:돋움'>이름</b>
+        </td>
+        <td width='290'>
+            <input title='input' alt='' type='text' class='member_border' align='absmiddle'
+                   name='name' id="name">
+        </td>
+    </tr>
+    <tr valign='top'>
+        <td height='30' style='padding-left:10'><b style='font-family:돋움'>이메일</b></td>
+        <td><input title='input' alt='' type='text' class='member_border' align='absmiddle' size='30'
+                   name='email' id="email">
+        </td>
+    </tr>
+</table>
+<table border='3' cellpadding='0' cellspacing='3' style='border-collapse:collapse;margin-top:3; display: none;'
+       bordercolor='E3E2E2'
+       width='410' rules='none' class='member_txt' id="messageTable">
+    <tr>
+        <td align='center' valign='middle'>
+            <span id="message"></span>
+        </td>
+    </tr>
+</table>
+<table border='0' cellpadding='0' cellspacing='0' width='410' class='member_txt'>
+    <tr>
+        <td align='center' height='120' valign='top'>
+            <input title='input' alt='' type='image' src='/static/image/login_confirm.gif' vspace='10'
+                   border='0' id="findId">
+        </td>
+    </tr>
+</table>
+</form>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#findId').on('click', function () {
+            event.preventDefault();
+            var name = $('#name').val();
+            var email = $('#email').val();
+            $.ajax({
+                url: './findByIdMember',
+                type: 'post',
+                data: {
+                    "name": name,
+                    "email": email,
+                },
+                success: function (data) {
+                    if (data == "false") {
+                        $('#findIdTable').hide();
+                        $('#message').text('존재하지 않는 데이터 입니다.');
+                        $('#messageTable').show();
+                    } else {
+                        $('#findIdTable').hide();
+                        $('#message').text("회원님의 아이디는 " + data + " 입니다.");
+                        $('#messageTable').show();
+                    }
+                }
+            });
+        });
+    });
+
+</script>
+</body>
+</html>
